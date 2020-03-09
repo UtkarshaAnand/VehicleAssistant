@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Signup</title>
+        <link rel="stylesheet" type="text/css" href="./css/PageStyle.css">
+    </head>
+    <body>
+        <a href="/Login" style="font-size: large;">Login</a>
+        <div class="signup-box">
+          <form action="/SignUp" method="POST">   
+            <h2>SIGNUP</h2>
+            <div class="textbox">
+                <input type="text" placeholder="Username" name="name" value="" required>
+            </div>
+
+            <div class="textbox">
+                    <input type="text" placeholder="Email" name="email" value="" required>
+            </div>
+
+            <div class="textbox">
+                <input type="password" placeholder="Password" name="password" value="" required>
+            </div>
+
+            <div class="textbox">
+                    <input type="password" placeholder="Confirm Password" name="password2" value="" required><br>
+            </div>
+
+            <input class="btn" type="submit" name="" value="Signup">
+          </form>
+        </div>
+    </body>
+</html>
