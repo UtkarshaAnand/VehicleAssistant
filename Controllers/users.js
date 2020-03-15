@@ -14,27 +14,65 @@ router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/', 'Index.html'));
 });
 
-router.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/', 'Login.html'));
+// router.get('/login', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../public/', 'Login.html'));
+// });
+
+router.get('/login', function(req, res, next) {
+    passport.authenticate('jwt', function(err, user) {
+        if(err) { 
+          return next(err); 
+        }
+        if(!user) { 
+            return res.render('login'); 
+        }
+        else{ 
+            const name =  user.name;
+
+            return res.status(200).redirect('/profile');
+        }
+    }) (req, res, next);
 });
 
-router.get('/signup', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/', 'Signup.html')); 
-});
+// router.get('/signup', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../public/', 'Signup.html')); 
+// });
 
-router.post('/signup', (req, res) => {
+router.get('/signUp', function(req, res, next) {
+    passport.authenticate('jwt', function(err, user) {
+        if(err) { 
+          return next(err); 
+        }
+        if(!user) { 
+            return res.render('signUp');
+        }
+        else{ 
+            const name =  user.name;
+
+            return res.status(200).redirect('/profile');
+        }
+    }) (req, res, next);
+  });
+
+
+router.post('/signUp', (req, res) => {
     
     const {errors, isValid} = validateRegisterInput(req.body);
     
     // check validation for registration input
     if(!isValid){
-        return res.status(400).json(errors);
+        return res.status(400).render('signUp', {
+            errors
+        });
     }
 
     User.findOne({email: req.body.email})
         .then(user => {
             if(user){
-                return res.status(400).json({Email: 'Email already in use'});
+                errors.email = 'Email already in use';
+                return res.status(400).render('signUp', {
+                    errors
+                });    
             }
             else{
                 const newUser = new User({
@@ -48,9 +86,12 @@ router.post('/signup', (req, res) => {
                     bcrypt.hash(newUser.password, salt, (err, hash) => {
                         if(err) throw err;
                         newUser.password = hash;
+                        var success = true;
                         newUser.save()
                             //.then(user => res.json("Registration Succesfull! Please, login to continue"))
-                            .then(user => res.redirect('/login'))
+                            .then(user => res.render('signUp'), {
+                                success
+                            })
                             .catch(err);
                     });
                 });
@@ -64,7 +105,9 @@ router.post('/login', (req, res) => {
     
     // check validation for registration input
     if(!isValid){
-        return res.status(400).json(errors);
+        return res.status(400).render('login', {
+            errors
+        });
     }
 
     const email = req.body.email;
@@ -73,8 +116,10 @@ router.post('/login', (req, res) => {
     User.findOne({email})
         .then(user => {
             if(!user){
-                errors.email = "User with given email not found"
-                return res.status(404).json(errors);
+                errors.email = "Invalid email"
+                return res.status(404).render('login',{
+                    errors
+                });
             }
             const name = user.name;
             bcrypt.compare(password, user.password)
@@ -101,7 +146,9 @@ router.post('/login', (req, res) => {
                     }
                     else{
                         errors.password = "Password incorrect";
-                        return res.status(400).json(errors);
+                        return res.status(400).render('login', {
+                            errors
+                        });
                     }
                 });
         });
@@ -109,20 +156,48 @@ router.post('/login', (req, res) => {
 
 router.get('/logout', (req, res) => {
     res.clearCookie('jwt');
-    res.redirect('/login');
+    res.redirect('/profile');
 });
 
-router.get('/profile', passport.authenticate('jwt', {session: false}), (req, res) => {
-    const name =  req.user.name;
-    const email = req.user.email;
+// router.get('/profile', passport.authenticate('jwt', {session: false}, {failureRedirect: '/login'}, {failureFlash: 'Inavalid username or password'}), (req, res) => {
+//     const name =  req.user.name;
+//     //const email = req.user.email;
 
-    res.status(200).render('profile', {
-        name
-    });
-});
+//     res.status(200).render('profile', {
+//         name
+//     });
+// });
 
-router.get('/profile/chatRoom', (req, res) => {
-    res.status(200).json("Welcome to the chat room!");
-})
+router.get('/profile', function(req, res, next) {
+    passport.authenticate('jwt', function(err, user) {
+        if(err) { 
+          return next(err); 
+        }
+        if(!user) { 
+            return res.redirect('/login'); 
+        }
+        else{ 
+            const name =  user.name;
+
+            return res.status(200).render('profile', {
+                name
+            });
+        }
+    }) (req, res, next);
+  });
+
+router.get('/profile/chatRoom', function(req, res, next) {
+    passport.authenticate('jwt', function(err, user) {
+        if(err) { 
+          return next(err); 
+        }
+        if(!user) { 
+            return res.redirect('/login'); 
+        }
+        else{ 
+            return res.status(200).json('Welcome to chat room!');
+        }
+    }) (req, res, next);
+  });
 
 module.exports = router;
