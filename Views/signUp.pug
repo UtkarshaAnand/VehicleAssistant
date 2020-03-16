@@ -7,7 +7,15 @@
         <link rel="stylesheet" type="text/css" href="./css/PageStyle.css">
     </head>
     <body>
-        <a href="/login" style="font-size: large;">Login</a>
+        div.top
+            h2 Vehicle Assistant
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="home/chatRoom">Chat Room</a></li>
+                <li><a href="home/chatRoom">Sell a car</a></li>
+                <li><a class="active" href="signUp">Sign Up</a></li>
+                <li><a href="login">Login</a></li>
+            </ul>
         <div class="signup-box">
           <form action="/signUp" method="POST">   
             <h2>SIGNUP</h2>
@@ -35,17 +43,14 @@
                         ul
                             each err in errors
                                 li= err
-                        //- p= emailErr
                     </div>
-                //- else if emailErr
-                //-     <div class="alert alert-danger" role="alert">
-                //-         p= emailErr
-                //-     </div>
                 else if success
                     <div class="alert alert-success" role="alert">
                         p Registration successful! Please Login to continue
                     </div>
                     <a href="/Login" style="font-size: large;">Login</a>
         </div>
+        div.footer
+            p &copy; 2020 Vehicle Assistant
     </body>
 </html>

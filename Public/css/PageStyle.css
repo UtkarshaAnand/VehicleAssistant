@@ -12,7 +12,7 @@ body{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: black;
+  color: #000000ed;
 }
 .dashboard-box h2{
   float: left;
@@ -27,7 +27,7 @@ body{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: black;
+  color: #000000ed;
 }
 .login-box h2{
   float: left;
@@ -87,5 +87,71 @@ body{
   border-bottom:  2px solid #000000ed;
   margin-bottom: 50px;
   padding: 13px 0
+}
+
+.top{
+  border-bottom: 1px solid #000000;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.top h2{
+  padding-top: 5px;
+  padding-left: 5px;
+  font-size: 30px;
+}
+
+.top ul {
+  border-top: 1px solid #000000;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+.top li {
+  float: left;
+  border-right:1px solid rgb(255, 255, 255);
+}
+
+.top li:last-child {
+  border-right: none;
+}
+
+.top li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.top li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: rgb(66, 161, 173);
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(66, 161, 173);
+  color: white;
+  text-align: center;
+  height: 90px;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.footer p{
+  font-size: large;
+  padding: 20px;
 }
 

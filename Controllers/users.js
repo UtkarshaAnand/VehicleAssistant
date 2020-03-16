@@ -29,7 +29,7 @@ router.get('/login', function(req, res, next) {
         else{ 
             const name =  user.name;
 
-            return res.status(200).redirect('/profile');
+            return res.status(200).redirect('/home');
         }
     }) (req, res, next);
 });
@@ -49,7 +49,7 @@ router.get('/signUp', function(req, res, next) {
         else{ 
             const name =  user.name;
 
-            return res.status(200).redirect('/profile');
+            return res.status(200).redirect('/home');
         }
     }) (req, res, next);
   });
@@ -141,7 +141,7 @@ router.post('/login', (req, res) => {
                                     Userid: user.Userid,
                                     name: user.name,
                                 });*/
-                                res.redirect('/profile');
+                                res.redirect('/home');
                             });
                     }
                     else{
@@ -156,7 +156,7 @@ router.post('/login', (req, res) => {
 
 router.get('/logout', (req, res) => {
     res.clearCookie('jwt');
-    res.redirect('/profile');
+    res.redirect('/home');
 });
 
 // router.get('/profile', passport.authenticate('jwt', {session: false}, {failureRedirect: '/login'}, {failureFlash: 'Inavalid username or password'}), (req, res) => {
@@ -168,7 +168,7 @@ router.get('/logout', (req, res) => {
 //     });
 // });
 
-router.get('/profile', function(req, res, next) {
+router.get('/home', function(req, res, next) {
     passport.authenticate('jwt', function(err, user) {
         if(err) { 
           return next(err); 
@@ -179,14 +179,14 @@ router.get('/profile', function(req, res, next) {
         else{ 
             const name =  user.name;
 
-            return res.status(200).render('profile', {
+            return res.status(200).render('home', {
                 name
             });
         }
     }) (req, res, next);
   });
 
-router.get('/profile/chatRoom', function(req, res, next) {
+router.get('/home/chatRoom', function(req, res, next) {
     passport.authenticate('jwt', function(err, user) {
         if(err) { 
           return next(err); 
