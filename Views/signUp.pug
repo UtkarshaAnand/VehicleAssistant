@@ -4,17 +4,18 @@
         <meta charset="utf-8">
         <title>Signup</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="./css/PageStyle.css">
+        <link rel="stylesheet" type="text/css" href="/css/PageStyle.css">
     </head>
     <body>
         div.top
             h2 Vehicle Assistant
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="home/chatRoom">Chat Room</a></li>
-                <li><a href="home/chatRoom">Sell a car</a></li>
+                li: a(href="home/chatRoom") Chat Room
+                li: a(href="home/sellCar/carDetails") Sell a car
                 <li><a class="active" href="signUp">Sign Up</a></li>
                 <li><a href="login">Login</a></li>
+                li: a(href="home/drive") Drive
             </ul>
         <div class="signup-box">
           <form action="/signUp" method="POST">   
@@ -28,6 +29,10 @@
             </div>
 
             <div class="textbox">
+                <input type="text" placeholder="Contact Number" name="contact" value="" required>
+            </div>
+
+            <div class="textbox">
                 <input type="password" id="pass1" placeholder="Password" name="password" value="" required>
             </div>
 
@@ -35,7 +40,7 @@
                 <input type="password" id="pass2" placeholder="Confirm Password" name="password2" value="" required><br>
             </div>
 
-            <input class="btn" type="submit" name="" value="Signup" >
+            <input class="my-btn" type="submit" name="" value="Signup" >
           </form>
             #alert-box
                 if errors
@@ -44,12 +49,8 @@
                             each err in errors
                                 li= err
                     </div>
-                else if success
-                    <div class="alert alert-success" role="alert">
-                        p Registration successful! Please Login to continue
-                    </div>
-                    <a href="/Login" style="font-size: large;">Login</a>
         </div>
+
         div.footer
             p &copy; 2020 Vehicle Assistant
     </body>

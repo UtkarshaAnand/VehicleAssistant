@@ -1,17 +1,38 @@
 <html>
   head
     block styles
-    link(rel="stylesheet" type="text/css" href="./css/PageStyle.css")
-    title Profile
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    link(rel="stylesheet" type="text/css" href="/css/PageStyle.css")
+    title Home
   <body>
     div.top
       h2 Vehicle Assistant
       <ul>
-        <li><a class="active" href="/home">Home</a></li>
-        <li><a href="home/chatRoom">Chat Room</a></li>
-        <li><a href="home/chatRoom">Sell a car</a></li>
-        <li><a href='logout'>Logout</a><li>
+        li: a(class="active" href="/home") Home
+        li: a(href="home/chatRoom") Chat Room
+        li: a(href="home/sellCar/carDetails") Sell a car
+        li: a(href='logout') Logout
+        li: a(href="home/drive") Drive
       </ul>
+
+    div.main
+      <div class="row row-cols-1 row-cols-md-4">
+        each car in cars
+          -var ownerId = car.owner._id.toString()
+          -var userId = user._id.toString()
+          -if (ownerId != userId)
+            <div class="col mb-4">
+              <div class="card h-100">
+                img.card-img-top(src=`/${car.image}` alt="Card image cap")
+                <div class="card-body">
+                  h5.card-title= car.brand + ' ' + car.model
+                  a(href=`/home/car/${car._id}` class="btn btn-primary stretched-link") View Details
+                </div>
+              </div>
+            </div>
+      </div>
+    br
+    
     div.footer
       p &copy; 2020 Vehicle Assistant
   </body>

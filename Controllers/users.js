@@ -4,19 +4,40 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const path = require('path');
+const fs = require('fs');
+const multer = require('multer');
 
-const User = require('../models/User');
+const User = require('../Models/User');
+const Car = require('../Models/Car');
 const keys = require('../config'); 
 const validateRegisterInput = require('../validation/register');
 const validateLoginInput = require('../validation/login');
 
-router.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/', 'Index.html'));
-});
+//custom image storage function
+var storage = multer.diskStorage({
+    destination: './uploads/',
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now()+ '.jpg')
+    }
+})
 
-// router.get('/login', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../public/', 'Login.html'));
-// });
+const { spawn } = require('child_process');
+
+var upload = multer({ storage: storage });
+
+router.get('/', function(req, res, next) {
+    passport.authenticate('jwt', function(err, user) {
+        if(err) { 
+          return next(err); 
+        }
+        if(!user) { 
+            return res.render('index'); 
+        }
+        else{ 
+            return res.status(200).redirect('/home');
+        }
+    }) (req, res, next);
+});
 
 router.get('/login', function(req, res, next) {
     passport.authenticate('jwt', function(err, user) {
@@ -27,16 +48,10 @@ router.get('/login', function(req, res, next) {
             return res.render('login'); 
         }
         else{ 
-            const name =  user.name;
-
             return res.status(200).redirect('/home');
         }
     }) (req, res, next);
 });
-
-// router.get('/signup', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../public/', 'Signup.html')); 
-// });
 
 router.get('/signUp', function(req, res, next) {
     passport.authenticate('jwt', function(err, user) {
@@ -47,8 +62,6 @@ router.get('/signUp', function(req, res, next) {
             return res.render('signUp');
         }
         else{ 
-            const name =  user.name;
-
             return res.status(200).redirect('/home');
         }
     }) (req, res, next);
@@ -78,7 +91,8 @@ router.post('/signUp', (req, res) => {
                 const newUser = new User({
                     name: req.body.name,
                     email: req.body.email,
-                    password: req.body.password
+                    password: req.body.password,
+                    contactNumber: req.body.contact
                 });
                 //console.log(newUser);
 
@@ -86,12 +100,9 @@ router.post('/signUp', (req, res) => {
                     bcrypt.hash(newUser.password, salt, (err, hash) => {
                         if(err) throw err;
                         newUser.password = hash;
-                        var success = true;
                         newUser.save()
                             //.then(user => res.json("Registration Succesfull! Please, login to continue"))
-                            .then(user => res.render('signUp'), {
-                                success
-                            })
+                            .then(res.render('login'))
                             .catch(err);
                     });
                 });
@@ -134,7 +145,7 @@ router.post('/login', (req, res) => {
                                 res.cookie('jwt', token, {
                                     expires: new Date(Date.now() + 3600*1000),
                                     secure: false,
-                                    httpOnly: true
+                                    httpOnly: true,
                                 });
                                 /*res.json({
                                     message: "Succesful Login",
@@ -159,15 +170,6 @@ router.get('/logout', (req, res) => {
     res.redirect('/home');
 });
 
-// router.get('/profile', passport.authenticate('jwt', {session: false}, {failureRedirect: '/login'}, {failureFlash: 'Inavalid username or password'}), (req, res) => {
-//     const name =  req.user.name;
-//     //const email = req.user.email;
-
-//     res.status(200).render('profile', {
-//         name
-//     });
-// });
-
 router.get('/home', function(req, res, next) {
     passport.authenticate('jwt', function(err, user) {
         if(err) { 
@@ -177,10 +179,12 @@ router.get('/home', function(req, res, next) {
             return res.redirect('/login'); 
         }
         else{ 
-            const name =  user.name;
-
-            return res.status(200).render('home', {
-                name
+            Car.find({})
+            .then(cars => { 
+                return res.render('home', {
+                    user,
+                    cars
+                });
             });
         }
     }) (req, res, next);
@@ -199,5 +203,123 @@ router.get('/home/chatRoom', function(req, res, next) {
         }
     }) (req, res, next);
   });
+
+// router.get('/home/sellCar/ownerDetails', function(req, res, next) {
+//     passport.authenticate('jwt', function(err, user) {
+//         if(err) { 
+//             return next(err); 
+//         }
+//         if(!user) { 
+//             return res.redirect('/login'); 
+//         }
+//         else{ 
+//             return res.status(200).render('ownerDetails');
+//         }
+//     }) (req, res, next);
+// });
+
+// router.post('/home/sellCar/ownerDetails', (req, res) => {
+//     const newOwner = new Owner({
+//         ownerName: req.body.ownerName,
+//         ownerDOB: req.body.ownerDOB,
+//         ownerContact: req.body.ownerContact,
+//         ownerAddress: req.body.ownerAddress
+//     });
+//     const owner = Owner.findOne().sort({created_at: -1}).populate('cars');
+//     newOwner.save()
+//     .then(res.redirect('/home/sellcar/carDetails'))
+//     .catch();
+// });
+
+router.get('/home/sellCar/carDetails', function(req, res, next) {
+    passport.authenticate('jwt', function(err, user) {
+        if(err) { 
+            return next(err); 
+        }
+        if(!user) { 
+            return res.redirect('/login'); 
+        }
+        else{ 
+            return res.status(200).render('carDetails');
+        }
+    }) (req, res, next);
+});
+
+router.post('/home/sellCar/carDetails', upload.single('photo'), function(req, res, next) {
+    passport.authenticate('jwt', function(err, user) {
+        if(err) {
+            return next(err);
+        }
+        if(!user) {
+            return res.redirect('/login');
+        }
+        else {
+            const newCar = new Car({ 
+                brand: req.body.brand,
+                model: req.body.model,
+                regState: req.body.regState,
+                regCity: req.body.regCity,
+                regYear: req.body.regYear,
+                owner: user._id,
+                image: req.file.path
+            });
+
+            newCar.save()
+            .then(res.redirect('/home'))
+            .catch();
+        }
+    }) (req, res, next);
+});
+
+router.get('/home/car/:carid', function(req, res, next) {
+    passport.authenticate('jwt', function(err, user) {
+        if(err) {
+            return next(err);
+        }
+        if(!user) {
+            return res.redirect('/login');
+        }
+        else {
+            Car.findOne({_id: req.params.carid})
+            .then(car => {
+                if(!car) {
+                    return console.log("Car not found!");
+                }
+                else {
+                    const owner_id = car.owner;
+                    User.findById({_id: owner_id})
+                    .then(owner => {
+                        if(!owner) {
+                            return console.log('Owner not found!');
+                        }
+                        else {
+                            return res.status(200).render('buyCar', {
+                                car,
+                                owner
+                            });
+                        }
+                    })
+                }
+            })
+            //return res.status(200).render('buyCar');    
+        }
+
+    }) (req, res, next);
+});
+
+router.get('/home/drive', (req, res) => {
+    const scriptPath = 'D:/Rishu/VehicleAssistant/Scripts/Drowsiness.py'
+    const process = spawn('python', [scriptPath])
+    
+    process.stderr.on('data', (myErr) => {
+        console.log(myErr);
+    })
+
+    process.on('exit', function (code, signal) {
+        console.log('child process exited with ' +
+                    `code ${code} and signal ${signal}`);
+        return res.redirect('/');
+    });
+});
 
 module.exports = router;

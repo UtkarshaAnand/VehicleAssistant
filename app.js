@@ -27,6 +27,8 @@ app.use(bodyParser.json());
 //passport middleware
 app.use(passport.initialize());
 
+//multer middleware
+
 require('./passport')(passport);
 
 const publicPath = path.join(__dirname, './public');
@@ -34,6 +36,7 @@ const publicPath = path.join(__dirname, './public');
 // use routes
 app.use(express.static(publicPath));
 app.use(users);
+app.use('/uploads', express.static('uploads'));
 
 const port = process.env.PORT || 3000;
 

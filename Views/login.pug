@@ -4,17 +4,18 @@
     <meta charset="utf-8">
     <title>Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="./css/PageStyle.css">
+    <link rel="stylesheet" type="text/css" href="/css/PageStyle.css">
   </head>
   <body>
     div.top
       h2 Vehicle Assistant
       <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="home/chatRoom">Chat Room</a></li>
-        <li><a href="home/chatRoom">Sell a car</a></li>
+        li: a(href="home/chatRoom") Chat Room
+        li: a(href="home/sellCar/carDetails") Sell a car
         <li><a href="signUp">Sign Up</a></li>
         <li><a class="active" href="login">Login</a></li>
+        li: a(href="home/drive") Drive
       </ul>
     <div class="login-box">
       <form action="/login" class='login-form' method="POST">
@@ -27,7 +28,7 @@
         <input type="password" id='password-txt' placeholder="Password" name="password" value="" required>
       </div>
 
-      <input class="btn" type="submit" name="" value="Login" onclick="login">
+      <input class="my-btn" type="submit" name="" value="Login" onclick="login">
       </form>
 
       #alert-box

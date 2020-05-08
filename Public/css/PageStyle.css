@@ -5,6 +5,7 @@ body{
   background-size: cover;
   background-repeat: no-repeat;
   height: 100%;
+  overflow-x: hidden;
 }
 .dashboard-box{
   width: 280px;
@@ -14,6 +15,7 @@ body{
   transform: translate(-50%, -50%);
   color: #000000ed;
 }
+
 .dashboard-box h2{
   float: left;
   font-size: 40px;
@@ -59,7 +61,7 @@ body{
   float: left;
   margin: 0 10px;
 }
-.btn{
+.my-btn{
   width: 50%;
   border-radius: 10px;
   background: none;
@@ -89,7 +91,56 @@ body{
   padding: 13px 0
 }
 
+.car-info-box{
+  width: 280px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: black;
+}
+.car-info-box h2{
+  float: left;
+  font-size: 40px;
+  border-bottom:  2px solid #000000ed;
+  margin-bottom: 50px;
+  padding: 13px 0
+}
+
+#brands{
+  width: 100%;
+  overflow: hidden;
+  font-size: 20px;
+  padding: 8px 0;
+  margin: 8px 0;
+  border-bottom: 1px solid #000000ed;
+  border-top: 1px solid #000000ed;
+  border-right: 1px solid #000000ed;
+  border-left: 1px solid #000000ed;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+#brands option:hover {
+  background-color: red;
+}
+
+#models{
+  width: 100%;
+  overflow: hidden;
+  font-size: 20px;
+  padding: 8px 0;
+  margin: 8px 0;
+  border-bottom: 1px solid #000000ed;
+  border-top: 1px solid #000000ed;
+  border-right: 1px solid #000000ed;
+  border-left: 1px solid #000000ed;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
 .top{
+  width: 100%; 
   border-bottom: 1px solid #000000;
   border-left: 1px solid black;
   border-right: 1px solid black;
@@ -99,6 +150,8 @@ body{
   padding-top: 5px;
   padding-left: 5px;
   font-size: 30px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: 700;
 }
 
 .top ul {
@@ -113,6 +166,7 @@ body{
 .top li {
   float: left;
   border-right:1px solid rgb(255, 255, 255);
+  font-size: 15px;
 }
 
 .top li:last-child {
@@ -143,7 +197,7 @@ body{
   background-color: rgb(66, 161, 173);
   color: white;
   text-align: center;
-  height: 90px;
+  height: 50px;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   border-left: 1px solid black;
@@ -152,6 +206,7 @@ body{
 
 .footer p{
   font-size: large;
-  padding: 20px;
+  padding: 10px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
 }
 
