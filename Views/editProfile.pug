@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Edit Profile</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/css/PageStyle.css">
+    </head>
+    <body>
+        div.top
+            h2 Vehicle Assistant
+            <ul>
+                <li><a href="/">Home</a></li>
+                li: a(href=`/chatRoom/${user.name}`) Chat Room
+                li: a(href="/sellCar/carDetails") Sell a car
+                li: a(href="/drive") Drive
+                li: a(class= "active" href=`/myProfile/${user.name}`) My Profile
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        <div class="signup-box">
+          form(action=`/editProfile/${user.name}` method="POST")   
+            <h2>EDIT PROFILE</h2>
+            <div class="textbox">
+                input(type="text" placeholder="Username" name="name" value=`${user.name}` required)
+            </div>
+
+            <div class="textbox">
+                    input(type="text" placeholder="Email" name="email" value=`${user.email}` required)
+            </div>
+
+            <div class="textbox">
+                input(type="text" placeholder="Contact Number" name="contact" value=`${user.contactNumber}` required)
+            </div>
+
+            <input class="my-btn" type="submit" name="" value="Save" >
+          
+            #alert-box
+                if errors
+                    <div class="alert alert-danger" role="alert">
+                        ul
+                            each err in errors
+                                li= err
+                    </div>
+        </div>
+
+        div.footer
+            p &copy; 2020 Vehicle Assistant
+    </body>
+</html>

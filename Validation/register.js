@@ -7,7 +7,7 @@ module.exports = function validateRegisterInput(data) {
 
     data.name = !isEmpty(data.name) ? data.name : '';
     data.email = !isEmpty(data.email) ? data.email : '';
-    data.userType = !isEmpty(data.userType) ? data.userType : '';
+    data.contact = !isEmpty(data.contact) ? data.contact : '';
     data.password = !isEmpty(data.password) ? data.password : '';
     data.password2 = !isEmpty(data.password2) ? data.password2 : '';
 
@@ -25,6 +25,10 @@ module.exports = function validateRegisterInput(data) {
 
     if(!Validator.isEmail(data.email)){
         errors.email = "Email is invalid.";
+    }
+
+    if(Validator.isEmpty(data.contact)){
+        errors.contact = "Contact number is required";
     }
 
     if(!Validator.isLength(data.password, {min: 6, max: 30})){

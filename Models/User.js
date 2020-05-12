@@ -21,7 +21,10 @@ const UserSchema = new Schema({
     contactNumber: {
         type: String,
         required: true
-    }
+    },
+    profilePicture: {
+        type: String,
+    } 
 });
 
 module.exports = User = mongoose.model('users', UserSchema);

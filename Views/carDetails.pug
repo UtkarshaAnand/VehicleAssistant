@@ -4,42 +4,45 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     link(rel="stylesheet" type="text/css" href="/css/PageStyle.css")
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    title Sell Car
   <body>
     div.top
       h2 Vehicle Assistant
       <ul>
         <li><a href="/home">Home</a></li>
-        <li><a href="/home/chatRoom">Chat Room</a></li>
-        <li><a class="active" href="/home/sellCar/carDetails">Sell a car</a></li>
+        li: a( href=`/chatRoom/${user.name}`) Chat Room
+        <li><a class="active" href="/sellCar/carDetails">Sell a car</a></li>
+        li: a(href="/drive") Drive
+        <li><a href="/myCars">My Cars</a><li>
+        li: a(href=`/myProfile/${user.name}`) My Profile
         <li><a href="/logout">Logout</a><li>
-        li: a(href="/home/drive") Drive
       </ul>
 
     <div class="car-info-box">
-      <form action="/home/sellCar/carDetails" method="POST" enctype="multipart/form-data">   
+      <form action="/sellCar/carDetails" method="POST" enctype="multipart/form-data">   
       <h2>Car Details</h2>
       <div class="textbox">
-          <input type="textbox" placeholder="Car Brand" name="brand" value="" required><br>
+          <input type="textbox" placeholder="Car Brand" name="brand" value="" autocomplete="off" required><br>
       </div>
 
       <div class="textbox">
-          <input type="textbox" placeholder="Car Model" name="model" value="" required><br>
+          <input type="textbox" placeholder="Car Model" name="model" value="" autocomplete="off" required><br>
       </div>
 
       <div class="textbox">
-          <input type="textbox" placeholder="Registration State" name="regState" value="" required><br>
+          <input type="textbox" placeholder="Registration State" name="regState" value="" autocomplete="off" required><br>
       </div>
 
       <div class="textbox">
-          <input type="textbox" placeholder="Registration City" name="regCity" value="" required><br>
+          <input type="textbox" placeholder="Registration City" name="regCity" value="" autocomplete="off" required><br>
       </div>
 
       <div class="textbox">
-          <input type="textbox" placeholder="Registration Year" name="regYear" value="" required><br>
+          <input type="textbox" placeholder="Registration Year" name="regYear" value="" autocomplete="off" required><br>
       </div>
 
       <div class="file-upload">
-          <input type="file" name="photo" class="thefile"><br>
+        <input type="file" name="photo" class="thefile" required><br>
       </div>
 
       <input class="my-btn" type="submit" name="" value="Submit" >

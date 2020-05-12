@@ -1,0 +1,40 @@
+<html>
+  head
+    block styles
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    link(rel="stylesheet" type="text/css" href="/css/PageStyle.css")
+    title My Cars
+  <body>
+    div.top
+      h2 Vehicle Assistant
+      <ul>
+        <li><a href="/home">Home</a></li>
+        li: a(href=`/chatRoom/${user.name}`) Chat Room
+        li: a(href="/sellCar/carDetails") Sell a car
+        li: a(href="/drive") Drive
+        <li><a class="active" href="home/myCars">My Cars</a><li>
+        li: a(href=`/myProfile/${user.name}`) My Profile
+        <li><a href="/logout">Logout</a><li>
+      </ul>
+
+    div.main
+      <div class="row row-cols-1 row-cols-md-4">
+          each car in cars
+              <div class="col mb-4">
+                  <div class="card h-100">
+                      img.card-img-top(src=`/${car.image}` alt="Card image cap")
+                      <div class="card-body">
+                          h5.card-title= car.brand + ' ' + car.model
+                          a(href=`/editPost/${car._id}` class="btn btn-info") Edit
+                          form(action= `/deletePost/${car._id}` method="POST" onsubmit="return confirm('Are you sure you want to delete the post?');")
+                            input(class="btn btn-danger" type="Submit" value="Delete") 
+                      </div>
+                  </div>
+              </div>
+      </div>  
+
+    div.footer
+      p &copy; 2020 Vehicle Assistant
+  </body>
+</html>

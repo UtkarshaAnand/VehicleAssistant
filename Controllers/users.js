@@ -12,6 +12,7 @@ const Car = require('../Models/Car');
 const keys = require('../config'); 
 const validateRegisterInput = require('../validation/register');
 const validateLoginInput = require('../validation/login');
+const validatePasswordInput = require('../validation/change-password');
 
 //custom image storage function
 var storage = multer.diskStorage({
@@ -68,7 +69,7 @@ router.get('/signUp', function(req, res, next) {
   });
 
 
-router.post('/signUp', (req, res) => {
+router.post('/signUp', upload.single('photo'), (req, res) => {
     
     const {errors, isValid} = validateRegisterInput(req.body);
     
@@ -88,21 +89,25 @@ router.post('/signUp', (req, res) => {
                 });    
             }
             else{
+                var filePath = './uploads/defaultProfile.png'
+                if(req.file) {
+                    filePath = req.file.path
+                }
                 const newUser = new User({
                     name: req.body.name,
                     email: req.body.email,
                     password: req.body.password,
-                    contactNumber: req.body.contact
+                    contactNumber: req.body.contact,
+                    profilePicture: filePath
                 });
-                //console.log(newUser);
-
+            
                 bcrypt.genSalt(10, (err, salt) => {
                     bcrypt.hash(newUser.password, salt, (err, hash) => {
                         if(err) throw err;
                         newUser.password = hash;
                         newUser.save()
                             //.then(user => res.json("Registration Succesfull! Please, login to continue"))
-                            .then(res.render('login'))
+                            .then(res.redirect('/login'))
                             .catch(err);
                     });
                 });
@@ -181,16 +186,21 @@ router.get('/home', function(req, res, next) {
         else{ 
             Car.find({})
             .then(cars => { 
-                return res.render('home', {
-                    user,
-                    cars
-                });
+                if(!cars) {
+                    return console.log("No car available")
+                }
+                else {
+                    return res.render('home', {
+                        user,
+                        cars
+                    });
+                }
             });
         }
     }) (req, res, next);
   });
 
-router.get('/home/chatRoom', function(req, res, next) {
+router.get('/chatRoom/:username', function(req, res, next) {
     passport.authenticate('jwt', function(err, user) {
         if(err) { 
           return next(err); 
@@ -199,39 +209,28 @@ router.get('/home/chatRoom', function(req, res, next) {
             return res.redirect('/login'); 
         }
         else{ 
-            return res.status(200).json('Welcome to chat room!');
+            return res.render('joinChat', {
+                user
+            });
         }
     }) (req, res, next);
-  });
+});
 
-// router.get('/home/sellCar/ownerDetails', function(req, res, next) {
+// router.post('/chatRoom/:username', function(req, res, next) {
 //     passport.authenticate('jwt', function(err, user) {
 //         if(err) { 
-//             return next(err); 
+//           return next(err); 
 //         }
 //         if(!user) { 
 //             return res.redirect('/login'); 
 //         }
-//         else{ 
-//             return res.status(200).render('ownerDetails');
+//         else{
+
 //         }
 //     }) (req, res, next);
 // });
 
-// router.post('/home/sellCar/ownerDetails', (req, res) => {
-//     const newOwner = new Owner({
-//         ownerName: req.body.ownerName,
-//         ownerDOB: req.body.ownerDOB,
-//         ownerContact: req.body.ownerContact,
-//         ownerAddress: req.body.ownerAddress
-//     });
-//     const owner = Owner.findOne().sort({created_at: -1}).populate('cars');
-//     newOwner.save()
-//     .then(res.redirect('/home/sellcar/carDetails'))
-//     .catch();
-// });
-
-router.get('/home/sellCar/carDetails', function(req, res, next) {
+router.get('/sellCar/carDetails', function(req, res, next) {
     passport.authenticate('jwt', function(err, user) {
         if(err) { 
             return next(err); 
@@ -240,12 +239,14 @@ router.get('/home/sellCar/carDetails', function(req, res, next) {
             return res.redirect('/login'); 
         }
         else{ 
-            return res.status(200).render('carDetails');
+            return res.status(200).render('carDetails', {
+                user
+            });
         }
     }) (req, res, next);
 });
 
-router.post('/home/sellCar/carDetails', upload.single('photo'), function(req, res, next) {
+router.post('/sellCar/carDetails', upload.single('photo'), function(req, res, next) {
     passport.authenticate('jwt', function(err, user) {
         if(err) {
             return next(err);
@@ -265,13 +266,13 @@ router.post('/home/sellCar/carDetails', upload.single('photo'), function(req, re
             });
 
             newCar.save()
-            .then(res.redirect('/home'))
+            .then(res.redirect('/myCars'))
             .catch();
         }
     }) (req, res, next);
 });
 
-router.get('/home/car/:carid', function(req, res, next) {
+router.get('/car/:carid', function(req, res, next) {
     passport.authenticate('jwt', function(err, user) {
         if(err) {
             return next(err);
@@ -295,19 +296,19 @@ router.get('/home/car/:carid', function(req, res, next) {
                         else {
                             return res.status(200).render('buyCar', {
                                 car,
-                                owner
+                                owner,
+                                user
                             });
                         }
                     })
                 }
             })
-            //return res.status(200).render('buyCar');    
         }
 
     }) (req, res, next);
 });
 
-router.get('/home/drive', (req, res) => {
+router.get('/drive', (req, res) => {
     const scriptPath = 'D:/Rishu/VehicleAssistant/Scripts/Drowsiness.py'
     const process = spawn('python', [scriptPath])
     
@@ -321,5 +322,299 @@ router.get('/home/drive', (req, res) => {
         return res.redirect('/');
     });
 });
+
+router.get('/myCars', function(req, res, next) {
+    passport.authenticate('jwt', function(err, user) {
+        if(err) {
+            return next(err);
+        }
+        else if(!user) {
+            return res.redirect('/login');
+        }
+        else {
+            Car.find({owner: user._id})
+            .then(cars => {
+                if(!cars){
+                    return console.log("You have no cars to sell");
+                }
+                else {
+                    return res.render('userCars', {
+                        cars,
+                        user
+                    })
+                }
+            })
+        }
+    }) (req, res, next)
+})
+
+router.get('/editPost/:carid', function(req, res, next) {
+    passport.authenticate('jwt', function(err, user) {
+        if(err) {
+            return next(err);
+        }
+        else if(!user) {
+            return res.redirect('/login');
+        }
+        else {
+            Car.findOne({_id: req.params.carid})
+            .then(car => {
+                if(!car) {
+                    return console.log("Car not found!")
+                }
+                else {
+                    return res.render('editPost', {
+                        car,
+                        user
+                    })
+                }
+            })
+        }
+    }) (req, res, next)
+});
+
+router.post('/editPost/:carid', function(req, res, next) {
+    passport.authenticate('jwt', function(err, user) {
+        if(err) {
+            return next(err);
+        }
+        else if(!user) {
+            return res.redirect('/login');
+        }
+        else {
+            Car.findOne({_id: req.params.carid})
+            .then(car => {
+                if(!car) {
+                    return console.log('Car not found')
+                }
+                else {
+                    car.brand= req.body.brand,
+                    car.model= req.body.model,
+                    car.regState= req.body.regState,
+                    car.regCity= req.body.regCity,
+                    car.regYear= req.body.regYear,
+                    car.save()
+                    .then(res.redirect('/myCars'))
+                    .catch()
+                }
+            })
+        }
+    }) (req, res, next)
+});
+
+router.post('/deletePost/:carid', function(req, res, next) {
+    passport.authenticate('jwt', function(err, user) {
+        if(err) {
+            return next(err);
+        }
+        else if(!user) {
+            return res.redirect('/login');
+        }
+        else {
+            Car.deleteOne({_id: req.params.carid})
+            .then(res.redirect('/myCars'))
+        }
+    }) (req, res, next)
+});
+
+router.get('/myProfile/:username', function(req, res, next) {
+    passport.authenticate('jwt', function(err, user) {
+        if(err) {
+            return next(err);
+        }
+        else if(!user) {
+            return res.redirect('/login');
+        }
+        else {
+            User.findOne({_id: user._id})
+            .then(user => {
+                if(!user) {
+                    return console.log("No user Profile");
+                }
+                else {
+                    return res.render('userProfile', {
+                        user
+                    });
+                }
+            })
+        }
+    }) (req, res, next)
+});
+
+router.get('/editProfile/:username', function(req, res, next) {
+    passport.authenticate('jwt', function(err, user) {
+        if(err) {
+            return next(err);
+        }
+        else if(!user) {
+            return res.redirect('/login');
+        }
+        else {
+            User.findOne({_id: user._id})
+            .then(user => {
+                if(!user) {
+                    return console.log("No user Profile");
+                }
+                else {
+                    return res.render('editProfile', {
+                        user
+                    });
+                }
+            })
+        }
+    }) (req, res, next)
+});
+
+router.post('/editProfile/:username', function(req, res, next) {
+    passport.authenticate('jwt', function(err, user) {
+        if(err) {
+            return next(err);
+        }
+        else if(!user) {
+            return res.redirect('/login');
+        }
+        else {
+            User.findOne({_id: user._id})
+            .then(user => {
+                if(!user) {
+                    return console.log("No user Profile");
+                }
+                else {
+                    user.name = req.body.name,
+                    user.email = req.body.email,
+                    user.contactNumber = req.body.contact
+                    user.save()
+                    .then(
+                        Car.find({owner: user._id})
+                        .then(car => {
+                            if(!car) {
+                                return res.redirect(`/myProfile/${user.name}`)
+                            }
+                            else {
+                                car.owner = user._id
+                                return res.redirect(`/myProfile/${user.name}`)
+                            }
+                        }).catch()
+                    ).catch()
+                }
+            });
+        }
+    }) (req, res, next)
+});
+
+router.get('/changePassword/:username', function(req, res, next) {
+    passport.authenticate('jwt', function(err, user) {
+        if(err) {
+            return next(err);
+        }
+        else if(!user) {
+            return res.redirect('/login');
+        }
+        else {
+            res.render('changePassword', {
+                user
+            })
+        }
+    }) (req, res, next)
+});
+
+router.post('/changePassword/:username', function(req, res, next) {
+    passport.authenticate('jwt', function(err, user) {
+        if(err) {
+            return next(err);
+        }
+        else if(!user) {
+            return res.redirect('/login');
+        }
+        else {
+            User.findOne({_id: user._id})
+            .then(user => {
+                if(!user) {
+                    return console.log("No user Profile");
+                }
+                else {
+                    const {errors, isValid} = validatePasswordInput(req.body);
+                    bcrypt.compare(req.body.currPass, user.password)
+                    .then(isMatch => {
+                        if(!isMatch) {
+                            errors.currPass = "Password Incorrect"
+                            return res.render('changePassword', {
+                                errors,
+                                user
+                            })
+                        }
+                        else if(errors.length == 0) {
+                            return res.render('changePassword', {
+                                errors,
+                                user
+                            })
+                        }
+                        else {
+                            user.password = req.body.newPass
+                            bcrypt.genSalt(10, (err, salt) => {
+                                bcrypt.hash(user.password, salt, (err, hash) => {
+                                    if(err) throw err;
+                                    user.password = hash;
+                                    user.save()
+                                        .then(res.redirect(`/myProfile/${user.name}`))
+                                        .catch(err);
+                                });
+                            });
+                        }
+                    })  
+                }
+            })
+        }
+    }) (req, res, next)
+});
+
+router.get('/deleteUser/:username', function(req, res, next) {
+    passport.authenticate('jwt', function(err, user) {
+        if(err) {
+            return next(err);
+        }
+        else if(!user) {
+            return res.redirect('/login');
+        }
+        else {
+            res.render('deleteUser', {
+                user
+            })
+        }
+    }) (req, res, next)
+});
+
+router.post('/deleteUser/:username', function(req, res, next) {
+    passport.authenticate('jwt', function(err, user) {
+        if(err) {
+            return next(err);
+        }
+        else if(!user) {
+            return res.redirect('/login');
+        }
+        else {
+            bcrypt.compare(req.body.currPass, user.password)
+                .then(isMatch => {
+                    if(!isMatch) {
+                        const error = "Password Incorrect"
+                        return res.render('deleteUser', {
+                            error,
+                            user
+                        })
+                    }
+                    else {
+                        User.deleteOne({_id: user._id})
+                        .then(
+                            Car.deleteMany({owner: user._id})
+                            .then(res.redirect('/signup'))
+                            .catch()
+                        )
+                        .catch() 
+                    }
+                })  
+        }
+    }) (req, res, next)
+});
+
 
 module.exports = router;

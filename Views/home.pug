@@ -9,15 +9,17 @@
       h2 Vehicle Assistant
       <ul>
         li: a(class="active" href="/home") Home
-        li: a(href="home/chatRoom") Chat Room
-        li: a(href="home/sellCar/carDetails") Sell a car
+        li: a(href=`/chatRoom/${user.name}`) Chat Room
+        li: a(href="/sellCar/carDetails") Sell a car
+        li: a(href="/drive") Drive
+        li: a(href="/myCars") My Cars
+        li: a(href=`/myProfile/${user.name}`) My Profile
         li: a(href='logout') Logout
-        li: a(href="home/drive") Drive
       </ul>
 
     div.main
       <div class="row row-cols-1 row-cols-md-4">
-        each car in cars
+        for car in cars
           -var ownerId = car.owner._id.toString()
           -var userId = user._id.toString()
           -if (ownerId != userId)
@@ -26,7 +28,7 @@
                 img.card-img-top(src=`/${car.image}` alt="Card image cap")
                 <div class="card-body">
                   h5.card-title= car.brand + ' ' + car.model
-                  a(href=`/home/car/${car._id}` class="btn btn-primary stretched-link") View Details
+                  a(href=`/car/${car._id}` class="btn btn-info stretched-link") View 
                 </div>
               </div>
             </div>

@@ -1,10 +1,12 @@
 const dotenv = require('dotenv');
-const express = require('express')
+const express = require('express');
+const http = require('http');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const pug = require('pug');
+//const SocketIO = require('socket.io');
 
 //dotenv.config({path: '../congif.env'})
 
@@ -13,6 +15,8 @@ var {mongoose} = require('./config');
 const users = require('./controllers/users');
 
 const app = express();
+const server = http.createServer(app);
+//var io = SocketIO(server);
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, './views'));
@@ -40,4 +44,4 @@ app.use('/uploads', express.static('uploads'));
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => console.log(`Server running on port ${port}`));
+server.listen(port, () => console.log(`Server running on port ${port}`));

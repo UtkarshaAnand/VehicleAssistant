@@ -1,0 +1,63 @@
+<html>
+  head
+    block styles
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    link(rel="stylesheet" type="text/css" href="/css/PageStyle.css")
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    title Edit Car Details
+  <body>
+    div.top
+      h2 Vehicle Assistant
+      <ul>
+        <li><a href="/home">Home</a></li>
+        li: (a href=`/chatRoom/${user.name}`) Chat Room
+        <li><a href="/sellCar/carDetails">Sell a car</a></li>
+        li: a(href="/drive") Drive
+        <li><a href="/myCars">My Cars</a><li>
+        li: a(href=`/myProfile/${user.name}`) My Profile
+        <li><a href="/logout">Logout</a><li>
+      </ul>
+
+    <div class="car-info-box">
+      form(action=`/editPost/${car._id}` method="POST")   
+        <h2>Edit Car Details</h2>
+        <div class="textbox">
+            input(type="textbox" placeholder="Car Brand" name="brand" value=`${car.brand}` required) 
+            br
+        </div>
+
+        <div class="textbox">
+            input(type="textbox" placeholder="Car Model" name="model" value=`${car.model}` required)
+            br
+        </div>
+
+        <div class="textbox">
+            input(type="textbox" placeholder="Registration State" name="regState" value=`${car.regState}` required)
+            br
+        </div>
+
+        <div class="textbox">
+            input(type="textbox" placeholder="Registration City" name="regCity" value=`${car.regCity}` required)
+            br
+        </div>
+
+        <div class="textbox">
+            input(type="textbox" placeholder="Registration Year" name="regYear" value=`${car.regYear}` required)
+            br
+        </div>
+
+        <input class="my-btn" type="submit" name="" value="Save" >
+
+      #alert-box
+          if errors
+              <div class="alert alert-danger" role="alert">
+                  ul
+                      each err in errors
+                          li= err
+              </div>
+    </div>
+
+    div.footer
+      p &copy; 2020 Vehicle Assistant
+  </body>
+</html>

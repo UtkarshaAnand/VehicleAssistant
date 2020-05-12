@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Change Password</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/css/PageStyle.css">
+    </head>
+    <body>
+        div.top
+            h2 Vehicle Assistant
+            <ul>
+                <li><a href="/">Home</a></li>
+                li: a(href=`/chatRoom/${user.name}`) Chat Room
+                li: a(href="/sellCar/carDetails") Sell a car
+                li: a(href="/drive") Drive
+                li: a(href=`/myProfile/${user.name}`) My Profile
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        <div class="signup-box">
+          form(action=`/deleteUser/${user.name}` method="POST" onsubmit="return confirm('Are you sure you want to delete your account?');")   
+            <h2>Delete Account</h2>
+            <div class="textbox">
+                input(type="password" placeholder="Current Password" name="currPass" value='' required)
+            </div>
+
+            <input class="btn btn-danger" type="submit" name="" value="Delete">
+          
+            #alert-box
+                if error
+                    <div class="alert alert-danger" role="alert">
+                        p= error
+                    </div>
+        </div>
+
+        div.footer
+            p &copy; 2020 Vehicle Assistant
+    </body>
+</html>

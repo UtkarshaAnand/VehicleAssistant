@@ -14,7 +14,7 @@ def detect(gray, frame):
         eyes = eye_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30,30))
         
         value = ""
-        if len(eyes) < 1:
+        if len(eyes) < 2:
             value += "Sleepy"
             #print("Sleepy")
         else:
