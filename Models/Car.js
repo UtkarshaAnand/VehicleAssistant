@@ -26,6 +26,10 @@ const CarSchema = new Schema({
         type: Number,
         required: true
     },
+    km: {
+        type: Number,
+        required: true
+    },
     image: {
         type: String,
         required: true

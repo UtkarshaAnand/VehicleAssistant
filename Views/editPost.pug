@@ -10,7 +10,7 @@
       h2 Vehicle Assistant
       <ul>
         <li><a href="/home">Home</a></li>
-        li: (a href=`/chatRoom/${user.name}`) Chat Room
+        li: a(href=`/chatRoom/${user.name}`) Chat Room
         <li><a href="/sellCar/carDetails">Sell a car</a></li>
         li: a(href="/drive") Drive
         <li><a href="/myCars">My Cars</a><li>
@@ -44,6 +44,10 @@
         <div class="textbox">
             input(type="textbox" placeholder="Registration Year" name="regYear" value=`${car.regYear}` required)
             br
+        </div>
+
+        <div class="textbox">
+          <input type="textbox" placeholder="Kilometers driven" name="km" value=`${car.km}` autocomplete="off" required><br>
         </div>
 
         <input class="my-btn" type="submit" name="" value="Save" >

@@ -22,6 +22,7 @@ var storage = multer.diskStorage({
     }
 })
 
+
 const { spawn } = require('child_process');
 
 var upload = multer({ storage: storage });
@@ -209,26 +210,10 @@ router.get('/chatRoom/:username', function(req, res, next) {
             return res.redirect('/login'); 
         }
         else{ 
-            return res.render('joinChat', {
-                user
-            });
+            return res.sendFile(path.join(__dirname, '../views/joinChat.html'));
         }
     }) (req, res, next);
 });
-
-// router.post('/chatRoom/:username', function(req, res, next) {
-//     passport.authenticate('jwt', function(err, user) {
-//         if(err) { 
-//           return next(err); 
-//         }
-//         if(!user) { 
-//             return res.redirect('/login'); 
-//         }
-//         else{
-
-//         }
-//     }) (req, res, next);
-// });
 
 router.get('/sellCar/carDetails', function(req, res, next) {
     passport.authenticate('jwt', function(err, user) {
@@ -261,6 +246,7 @@ router.post('/sellCar/carDetails', upload.single('photo'), function(req, res, ne
                 regState: req.body.regState,
                 regCity: req.body.regCity,
                 regYear: req.body.regYear,
+                km: req.body.km,
                 owner: user._id,
                 image: req.file.path
             });
@@ -393,6 +379,7 @@ router.post('/editPost/:carid', function(req, res, next) {
                     car.regState= req.body.regState,
                     car.regCity= req.body.regCity,
                     car.regYear= req.body.regYear,
+                    car.km = req.body.km
                     car.save()
                     .then(res.redirect('/myCars'))
                     .catch()
