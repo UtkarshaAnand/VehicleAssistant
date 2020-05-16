@@ -8,27 +8,30 @@
     </head>
     <body>
         div.top
-            h2 Vehicle Assistant
             <ul>
                 <li><a href="/">Home</a></li>
                 li: a(href=`/chatRoom/${user.name}`) Chat Room
                 li: a(href="/sellCar/carDetails") Sell a car
                 li: a(href="/drive") Drive
-                li: a(href=`/myProfile/${user.name}`) My Profile
-                <li><a href="/logout">Logout</a></li>
+                li: a(href=`/myProfile/${user.name}` class="active" style="color: black;") #{user.name}
+                li(style="float:right;"): a(href='/logout') Logout 
             </ul>
         <div class="signup-box">
           form(action=`/deleteUser/${user.name}` method="POST" onsubmit="return confirm('Are you sure you want to delete your account?');")   
-            <h2>Delete Account</h2>
-            <div class="textbox">
-                input(type="password" placeholder="Current Password" name="currPass" value='' required)
+            <h4>Delete Account</h4>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Password</span>
+                </div>
+                <input type="password" class="form-control" name="password" aria-label="Password" aria-describedby="basic-addon1" autocomplete="off" required autofocus>
             </div>
 
             <input class="btn btn-danger" type="submit" name="" value="Delete">
           
             #alert-box
                 if error
-                    <div class="alert alert-danger" role="alert">
+                    <div class="alert alert-danger" role="alert" style="margin-top: 20px">
                         p= error
                     </div>
         </div>

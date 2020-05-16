@@ -7,55 +7,83 @@
     title Edit Car Details
   <body>
     div.top
-      h2 Vehicle Assistant
       <ul>
         <li><a href="/home">Home</a></li>
         li: a(href=`/chatRoom/${user.name}`) Chat Room
         <li><a href="/sellCar/carDetails">Sell a car</a></li>
         li: a(href="/drive") Drive
-        <li><a href="/myCars">My Cars</a><li>
-        li: a(href=`/myProfile/${user.name}`) My Profile
-        <li><a href="/logout">Logout</a><li>
+        <li><a href="/myCars" class="active" style="color: black;">My Cars</a><li>
+        li: a(href=`/myProfile/${user.name}`) #{user.name}
+        li(style="float:right;"): a(href='/logout') Logout 
       </ul>
 
     <div class="car-info-box">
       form(action=`/editPost/${car._id}` method="POST")   
-        <h2>Edit Car Details</h2>
-        <div class="textbox">
-            input(type="textbox" placeholder="Car Brand" name="brand" value=`${car.brand}` required) 
-            br
+        <h4>Edit Car Details</h4>
+        <div class="form-group">
+          <label for="brand">Select Brand</label>
+          <select class="form-control" name="brand" id="brand" onChange="changeModel(this.value);">
+            <option value="" disabled selected>Select Brand</option>
+            <option value="Maruti">Maruti</option>
+            <option value="Hyundai">Hyundai</option>
+            <option value="Audi">Audi</option>
+            <option value="BMW">BMW</option>
+            <option value="Chevrolet">Chevrolet</option>
+            <option value="Ford">Ford</option>
+            <option value="Fiat">Fiat</option>
+            <option value="Honda">Honda</option>
+            <option value="Mahindra">Mahindra</option>
+            <option value="MercedesBenz">MercedesBenz</option>
+            <option value="Nissan">Nissan</option>
+            <option value="Renault">Renault</option>
+            <option value="Skoda">Skoda</option>
+            <option value="Tata">Tata</option>
+            <option value="Toyota">Toyota</option>
+            <option value="Volkswagen">Volkswagen</option>
+          </select>
         </div>
 
-        <div class="textbox">
-            input(type="textbox" placeholder="Car Model" name="model" value=`${car.model}` required)
-            br
+        <div class="form-group">
+          <label for="model">Select Model</label>
+          <select class="form-control" name="model" id="model">
+              <option value="" disabled selected>Select Model</option>
+          </select>
         </div>
 
-        <div class="textbox">
-            input(type="textbox" placeholder="Registration State" name="regState" value=`${car.regState}` required)
-            br
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">State</span>
+        </div>
+          input(type="text" class="form-control" name="regState" value=`${car.regState}` aria-label="State" aria-describedby="basic-addon1" autocomplete="off" required)
         </div>
 
-        <div class="textbox">
-            input(type="textbox" placeholder="Registration City" name="regCity" value=`${car.regCity}` required)
-            br
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">City</span>
+          </div>
+          input(type="text" class="form-control" name="regCity" value=`${car.regCity}` aria-label="City" aria-describedby="basic-addon1" autocomplete="off" required)
         </div>
 
-        <div class="textbox">
-            input(type="textbox" placeholder="Registration Year" name="regYear" value=`${car.regYear}` required)
-            br
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Year</span>
+          </div>
+          input(type="text" class="form-control" name="regYear" value=`${car.regYear}` aria-label="Year" aria-describedby="basic-addon1" autocomplete="off" required)
         </div>
 
-        <div class="textbox">
-          <input type="textbox" placeholder="Kilometers driven" name="km" value=`${car.km}` autocomplete="off" required><br>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Kilometers</span>
+          </div>
+          input(type="text" class="form-control" name="km" value=`${car.km}` aria-label="Kilometers" aria-describedby="basic-addon1" autocomplete="off" required)
         </div>
 
-        <input class="my-btn" type="submit" name="" value="Save" >
+        <input class="btn btn-primary" type="submit" name="" value="Save" >
 
-      #alert-box
+        #alert-box
           if errors
-              <div class="alert alert-danger" role="alert">
-                  ul
+              <div class="alert alert-danger" role="alert" style="margin-top: 20px">
+                  ul(style="list-style-type: none;")
                       each err in errors
                           li= err
               </div>
@@ -63,5 +91,7 @@
 
     div.footer
       p &copy; 2020 Vehicle Assistant
+
+    script(src="../JS/brand-model.js")
   </body>
 </html>

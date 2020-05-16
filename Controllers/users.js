@@ -33,7 +33,7 @@ router.get('/', function(req, res, next) {
           return next(err); 
         }
         if(!user) { 
-            return res.render('index'); 
+            return res.sendFile((path.join(__dirname, '../views/index.html'))); 
         }
         else{ 
             return res.status(200).redirect('/home');
@@ -210,7 +210,10 @@ router.get('/chatRoom/:username', function(req, res, next) {
             return res.redirect('/login'); 
         }
         else{ 
-            return res.sendFile(path.join(__dirname, '../views/joinChat.html'));
+            return res.render('joinChat', {
+                user
+            })
+            //return res.sendFile(path.join(__dirname, '../views/joinChat.html'));
         }
     }) (req, res, next);
 });
@@ -240,6 +243,7 @@ router.post('/sellCar/carDetails', upload.single('photo'), function(req, res, ne
             return res.redirect('/login');
         }
         else {
+            var room = req.body.brand + ' ' + user.name.substr(0, user.name.indexOf(' '));
             const newCar = new Car({ 
                 brand: req.body.brand,
                 model: req.body.model,
@@ -248,7 +252,9 @@ router.post('/sellCar/carDetails', upload.single('photo'), function(req, res, ne
                 regYear: req.body.regYear,
                 km: req.body.km,
                 owner: user._id,
-                image: req.file.path
+                image: req.file.path,
+                roomName: room,
+                postedAt: new Date().toDateString()
             });
 
             newCar.save()
@@ -374,12 +380,14 @@ router.post('/editPost/:carid', function(req, res, next) {
                     return console.log('Car not found')
                 }
                 else {
+                    var room = req.body.brand + ' ' + user.name.substr(0, user.name.indexOf(' '));
                     car.brand= req.body.brand,
                     car.model= req.body.model,
                     car.regState= req.body.regState,
                     car.regCity= req.body.regCity,
                     car.regYear= req.body.regYear,
-                    car.km = req.body.km
+                    car.km = req.body.km,
+                    car.roomName = room
                     car.save()
                     .then(res.redirect('/myCars'))
                     .catch()

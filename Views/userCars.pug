@@ -7,28 +7,27 @@
     title My Cars
   <body>
     div.top
-      h2 Vehicle Assistant
       <ul>
         <li><a href="/home">Home</a></li>
         li: a(href=`/chatRoom/${user.name}`) Chat Room
         li: a(href="/sellCar/carDetails") Sell a car
         li: a(href="/drive") Drive
-        <li><a class="active" href="home/myCars">My Cars</a><li>
-        li: a(href=`/myProfile/${user.name}`) My Profile
-        <li><a href="/logout">Logout</a><li>
+        <li><a class="active" href="home/myCars" style="color: black;">My Cars</a><li>
+        li: a(href=`/myProfile/${user.name}`) #{user.name}
+        li(style="float:right;"): a(href='/logout') Logout
       </ul>
 
     div.main
-      <div class="row row-cols-1 row-cols-md-4">
+      <div class="row row-cols-1 row-cols-md-4" style="margin-top: 20px; margin-bottom: 20px; margin-right: 5px; margin-left: 5px;">
           each car in cars
               <div class="col mb-4">
                   <div class="card h-100">
                       img.card-img-top(src=`/${car.image}` alt="Card image cap")
                       <div class="card-body">
                           h5.card-title= car.brand + ' ' + car.model
-                          a(href=`/editPost/${car._id}` class="btn btn-info") Edit
+                          a(href=`/editPost/${car._id}` class="btn btn-primary" style="margin-right: 20px") Edit
                           form(action= `/deletePost/${car._id}` method="POST" onsubmit="return confirm('Are you sure you want to delete the post?');")
-                            input(class="btn btn-danger" type="Submit" value="Delete") 
+                            input(class="btn btn-danger" type="Submit" value="Delete" style="margin-top: 10px") 
                       </div>
                   </div>
               </div>

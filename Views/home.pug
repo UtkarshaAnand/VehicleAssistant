@@ -1,24 +1,24 @@
 <html>
   head
     block styles
+    title Home
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     link(rel="stylesheet" type="text/css" href="/css/PageStyle.css")
-    title Home
+
   <body>
     div.top
-      h2 Vehicle Assistant
       <ul>
-        li: a(class="active" href="/home") Home
+        <li><a class="active" href="/home" style="color: black;">Home</a></li>
         li: a(href=`/chatRoom/${user.name}`) Chat Room
         li: a(href="/sellCar/carDetails") Sell a car
         li: a(href="/drive") Drive
-        li: a(href="/myCars") My Cars
-        li: a(href=`/myProfile/${user.name}`) My Profile
-        li: a(href='logout') Logout
+        <li><a href="/myCars">My Cars</a><li>
+        li: a(href=`/myProfile/${user.name}`) #{user.name}
+        li(style="float:right;"): a(href='/logout') Logout 
       </ul>
 
     div.main
-      <div class="row row-cols-1 row-cols-md-4">
+      <div class="row row-cols-1 row-cols-md-4" style="margin-top: 20px; margin-bottom: 20px; margin-right: 5px; margin-left: 5px;">
         for car in cars
           -var ownerId = car.owner._id.toString()
           -var userId = user._id.toString()
@@ -28,12 +28,11 @@
                 img.card-img-top(src=`/${car.image}` alt="Card image cap")
                 <div class="card-body">
                   h5.card-title= car.brand + ' ' + car.model
-                  a(href=`/car/${car._id}` class="btn btn-info stretched-link") View 
+                  a(href=`/car/${car._id}` class="btn btn-primary stretched-link") View 
                 </div>
               </div>
             </div>
       </div>
-    br
     
     div.footer
       p &copy; 2020 Vehicle Assistant

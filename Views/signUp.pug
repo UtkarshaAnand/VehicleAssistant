@@ -8,47 +8,68 @@
     </head>
     <body>
         div.top
-            h2 Vehicle Assistant
             <ul>
                 <li><a href="/">Home</a></li>
                 li: a(href="/sellCar/carDetails") Sell a car
-                <li><a class="active" href="signUp">Sign Up</a></li>
                 li: a(href="/drive") Drive
-                <li><a href="login">Login</a></li>
+                li: a(href="signUp" class="active" style="color: black;") SignUp
+                li: a(href='login') Login
             </ul>
+
         <div class="signup-box">
           <form action="/signUp" method="POST" enctype="multipart/form-data">   
-            <h2>SIGNUP</h2>
-            <div class="textbox">
-                <input type="text" placeholder="Username" name="name" value="" autocomplete="off" required>
+            <h4>Signup</h4>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Username</span>
+                </div>
+                <input type="text" class="form-control" name="name" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" required autofocus>
             </div>
 
-            <div class="textbox">
-                    <input type="text" placeholder="Email" name="email" value="" autocomplete="off" required>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Email</span>
+                </div>
+                <input type="text" class="form-control" name="email" placeholder="Eg: user@example.com" aria-label="Email" aria-describedby="basic-addon1" autocomplete="off" required>
             </div>
 
-            <div class="textbox">
-                <input type="text" placeholder="Contact Number" name="contact" value="" autocomplete="off" required>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Contact</span>
+                </div>
+                <input type="text" class="form-control" name="contact" aria-label="Contact" aria-describedby="basic-addon1" autocomplete="off" required>
             </div>
 
-            <div class="textbox">
-                <input type="password" id="pass1" placeholder="Password" name="password" value="" required>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Password</span>
+                </div>
+                <input type="password" class="form-control" name="password" aria-label="Password" aria-describedby="basic-addon1" autocomplete="off" required>
             </div>
 
-            <div class="textbox">
-                <input type="password" id="pass2" placeholder="Confirm Password" name="password2" value="" required><br>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Confirm Password</span>
+                </div>
+                <input type="password" class="form-control" name="password2" aria-label="Password2" aria-describedby="basic-addon1" autocomplete="off" required>
             </div>
 
-            <div class="file-upload">
-                <input type="file" name="photo" class="thefile"><br>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Photo</span>
+                </div>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" name="photo" id="inputGroupFile01">
+                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                </div>
             </div>
-
-            <input class="my-btn" type="submit" name="" value="Signup" >
+            
+            <input class="btn btn-primary" type="submit" name="" value="Signup" >
           </form>
             #alert-box
                 if errors
-                    <div class="alert alert-danger" role="alert">
-                        ul
+                    <div class="alert alert-danger" role="alert" style="margin-top: 20px">
+                        ul(style="list-style-type: none;")
                             each err in errors
                                 li= err
                     </div>

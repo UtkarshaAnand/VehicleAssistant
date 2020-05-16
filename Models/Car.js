@@ -33,6 +33,12 @@ const CarSchema = new Schema({
     image: {
         type: String,
         required: true
+    },
+    roomName: {
+        type: String
+    },
+    postedAt: {
+        type: String
     }
 });
 

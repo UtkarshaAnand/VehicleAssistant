@@ -8,36 +8,45 @@
     </head>
     <body>
         div.top
-            h2 Vehicle Assistant
             <ul>
                 <li><a href="/">Home</a></li>
                 li: a(href=`/chatRoom/${user.name}`) Chat Room
                 li: a(href="/sellCar/carDetails") Sell a car
                 li: a(href="/drive") Drive
-                li: a(class= "active" href=`/myProfile/${user.name}`) My Profile
-                <li><a href="/logout">Logout</a></li>
+                li: a(class= "active" href=`/myProfile/${user.name}` style="color: black;") #{user.name}
+                li(style="float:right;"): a(href='/logout') Logout 
             </ul>
         <div class="signup-box">
           form(action=`/editProfile/${user.name}` method="POST")   
-            <h2>EDIT PROFILE</h2>
-            <div class="textbox">
-                input(type="text" placeholder="Username" name="name" value=`${user.name}` required)
+            <h4>Edit Profile</h4>
+            
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Username</span>
+                </div>
+                input(type="text" class="form-control" name="name" value=`${user.name}` aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" required autofocus)
             </div>
 
-            <div class="textbox">
-                    input(type="text" placeholder="Email" name="email" value=`${user.email}` required)
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Email</span>
+                </div>
+                input(type="text" class="form-control" name="email" value=`${user.email}` placeholder="Eg: user@example.com" aria-label="Email" aria-describedby="basic-addon1" autocomplete="off" required)
             </div>
 
-            <div class="textbox">
-                input(type="text" placeholder="Contact Number" name="contact" value=`${user.contactNumber}` required)
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Contact</span>
+                </div>
+                input(type="text" class="form-control" name="contact" value=`${user.contactNumber}` placeholder="Eg: user@example.com" aria-label="Contact" aria-describedby="basic-addon1" autocomplete="off" required)
             </div>
 
-            <input class="my-btn" type="submit" name="" value="Save" >
+            <input class="btn btn-primary" type="submit" name="" value="Save" >
           
             #alert-box
                 if errors
-                    <div class="alert alert-danger" role="alert">
-                        ul
+                    <div class="alert alert-danger" role="alert" style="margin-top: 20px">
+                        ul(style="list-style-type: none;")
                             each err in errors
                                 li= err
                     </div>

@@ -7,20 +7,19 @@
     title Profile
   <body>
     div.top
-      h2 Vehicle Assistant
       <ul>
         <li><a href="/home">Home</a></li>
         li: a(href=`/chatRoom/${user.name}`) Chat Room
         li: a(href="/sellCar/carDetails") Sell a car
         li: a(href="/drive") Drive
         li: a(href="/myCars") My Cars
-        li: a(class= "active" href=`/myProfile/${user.name}`) My Profile
-        li: a(href="/logout") Logout
+        li: a(class= "active" href=`/myProfile/${user.name}` style="color: black;") #{user.name}
+        li(style="float:right;"): a(href='/logout') Logout
       </ul>
 
     div.main
       <div class="card" style="width: 38rem; position: absolute; top: 50%;left: 50%; transform: translate(-50%, -50%);">
-        img.card-img-top(src=`/${user.profilePicture}` alt= "Profile Picture" style="width: 40%; height: 15vw; border-radius: 50%")
+        img.card-img-top(src=`/${user.profilePicture}` alt= "Profile Picture" style="width: 40%; height: 15vw; border-radius: 50%;")
         <div class="card-body">
             h5.card-title= user.name
         </div>
@@ -29,8 +28,8 @@
             li.list-group-item= user.contactNumber
         </ul>
         <div class="card-body">
-          a(href=`/editProfile/${user.name}` class="btn btn-info") Edit
-          a(href=`/changePassword/${user.name}` class="btn btn-dark") Change Password
+          a(href=`/editProfile/${user.name}` class="btn btn-primary" style="margin-right: 20px") Edit
+          a(href=`/changePassword/${user.name}` class="btn btn-dark" style="margin-right: 20px") Change Password
           a(href=`/deleteUser/${user.name}` class="btn btn-danger") Delete Account
         </div>
       </div>  

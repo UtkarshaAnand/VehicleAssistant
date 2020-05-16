@@ -6,28 +6,29 @@
     title Buy Cars
   <body>
     div.top
-      h2 Vehicle Assistant
       <ul>
-        <li><a class="active" href="/home">Home</a></li>
+        <li><a class="active" href="/home" style="color: black;">Home</a></li>
         li: a(href=`/chatRoom/${user.name}`) Chat Room
         li: a(href="/sellCar/carDetails") Sell a car
         li: a(href="/drive") Drive
         <li><a href="/myCars">My Cars</a><li>
-        li: a(href=`/myProfile/${user.name}`) My Profile
-        <li><a href="/logout">Logout</a><li>
+        li: a(href=`/myProfile/${user.name}`) #{user.name}
+        li(style="float:right;"): a(href='/logout') Logout 
       </ul>
 
     div.main
-        <div class="card" style="width: 38rem; position: absolute; top: 50%;left: 50%; transform: translate(-50%, -50%);">
-          img.card-img-top(src=`/${car.image}` alt="Card image cap")
-          <div class="card-body">
-            <h5 class="card-title">#{car.brand} #{car.model}</h5>
-            <p class="card-text">#{car.regCity}, #{car.regState}</p> 
-            <p class="card-text">#{car.regYear}</p>
-            <p class="card-text">#{car.km}</p>
-            <p class="card-text">#{owner.name}</p>
-          </div>
-        </div>    
+      <div class="card" style="width: 38rem; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+        img.card-img-top(src=`/${car.image}` alt="Card image cap")
+        <div class="card-body">
+          <h5 class="card-title">#{car.brand} #{car.model}</h5>
+          <p class="card-text">Location: #{car.regCity}, #{car.regState}</p> 
+          <p class="card-text">Registration Year: #{car.regYear}</p>
+          <p class="card-text">Kilometers: #{car.km}</p>
+          <p class="card-text">Owner: #{owner.name}</p>
+          <p class="card-text">Room Name: #{car.roomName}</p>
+          <p class="card-text">#{car.postedAt}</p>
+        </div>
+      </div>  
 
     div.footer
       p &copy; 2020 Vehicle Assistant

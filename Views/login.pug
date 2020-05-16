@@ -8,37 +8,45 @@
   </head>
   <body>
     div.top
-      h2 Vehicle Assistant
       <ul>
-        <li><a href="/">Home</a></li>
-        li: a(href="/sellCar/carDetails") Sell a car
-        <li><a href="/signUp">Sign Up</a></li>
-        li: a(href="/drive") Drive
-        <li><a class="active" href="login">Login</a></li>
+          <li><a href="/">Home</a></li>
+          li: a(href="/sellCar/carDetails") Sell a car
+          li: a(href="/drive") Drive
+          li: a(href="/signUp") SignUp
+          li: a(href='login' class="active" style="color: black;") Login
       </ul>
+    
     <div class="login-box">
       <form action="/login" class='login-form' method="POST">
-      <h2>LOGIN</h2>
-      <div class="textbox">
-        <input type="text" id='email-txt' placeholder="Email" name="email" value="" required>
-      </div>
+        <h4>Login</h4>
+        
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Email</span>
+          </div>
+          <input type="text" class="form-control" name="email" placeholder="Eg: user@example.com" aria-label="Email" aria-describedby="basic-addon1" autocomplete="on" autofocus required>
+        </div>
 
-      <div class="textbox">
-        <input type="password" id='password-txt' placeholder="Password" name="password" value="" required>
-      </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Password</span>
+          </div>
+          <input type="password" class="form-control" name="password" aria-label="Password" aria-describedby="basic-addon1" autocomplete="off" required>
+        </div>
 
-      <input class="my-btn" type="submit" name="" value="Login" onclick="login">
+        <input class="btn btn-primary" type="submit" name="" value="Login">
+
       </form>
 
       #alert-box
         if errors
-          <div class="alert alert-danger" role="alert">
-              ul
-                  each err in errors
-                      li= err
+          <div class="alert alert-danger" role="alert" style="margin-top: 20px">
+            ul(style="list-style-type: none;")
+              each err in errors
+                li= err
           </div>
     </div>
-    div.footer
+    div.footer 
       p &copy; 2020 Vehicle Assistant
   </body>
 </html>
