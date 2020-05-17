@@ -17,16 +17,17 @@
       </ul>
 
     div.main
-      <div class="card" style="width: 38rem; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+      <div class="card" style="width: 38rem; position: absolute; top: 52%; left: 50%; transform: translate(-50%, -50%);">
         img.card-img-top(src=`/${car.image}` alt="Card image cap")
         <div class="card-body">
-          <h5 class="card-title">#{car.brand} #{car.model}</h5>
-          <p class="card-text">Location: #{car.regCity}, #{car.regState}</p> 
-          <p class="card-text">Registration Year: #{car.regYear}</p>
-          <p class="card-text">Kilometers: #{car.km}</p>
-          <p class="card-text">Owner: #{owner.name}</p>
-          <p class="card-text">Room Name: #{car.roomName}</p>
-          <p class="card-text">#{car.postedAt}</p>
+          <h4 class="card-title" style="text-align: center">#{car.brand} #{car.model}</h4>
+          <p class="card-text" style="text-align: center">Location: #{car.regCity}, #{car.regState}</p> 
+          <p class="card-text" style="text-align: center">Registration Year: #{car.regYear}</p>
+          <p class="card-text" style="text-align: center">Kilometers: #{car.km}</p>
+          <p class="card-text" style="text-align: center">Owner: #{owner.name}</p>
+          <p class="card-text" style="text-align: center">Room Name: #{car.roomName}</p>
+          <p class="card-text" style="text-align: center">Posted on: #{car.postedAt}</p>
+          <p class="card-text" style="text-align: center">Auction on: #{car.auctionDate}, #{car.auctionTime}</p>
         </div>
       </div>  
 

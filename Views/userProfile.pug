@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     link(rel="stylesheet" type="text/css" href="/css/PageStyle.css")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     title Profile
   <body>
     div.top
@@ -18,21 +19,22 @@
       </ul>
 
     div.main
-      <div class="card" style="width: 38rem; position: absolute; top: 50%;left: 50%; transform: translate(-50%, -50%);">
-        img.card-img-top(src=`/${user.profilePicture}` alt= "Profile Picture" style="width: 40%; height: 15vw; border-radius: 50%;")
-        <div class="card-body">
-            h5.card-title= user.name
-        </div>
-        <ul class="list-group list-group-flush">
-            li.list-group-item= user.email
-            li.list-group-item= user.contactNumber
-        </ul>
-        <div class="card-body">
-          a(href=`/editProfile/${user.name}` class="btn btn-primary" style="margin-right: 20px") Edit
-          a(href=`/changePassword/${user.name}` class="btn btn-dark" style="margin-right: 20px") Change Password
-          a(href=`/deleteUser/${user.name}` class="btn btn-danger") Delete Account
-        </div>
-      </div>  
+
+      <div class="profile-card" style="width: 38rem; position: absolute; top: 50%;left: 50%; transform: translate(-50%, -50%);">
+        img(src=`/${user.profilePicture}` alt="Profile Picture" style="width:100%")
+        h2(style="margin-top: 10px")= user.name
+        p.title= user.email
+        p.title= user.contactNumber
+        //- <div style="margin: 24px 0;">
+        //-   <a href="#"><i class="fa fa-dribbble"></i></a> 
+        //-   <a href="#"><i class="fa fa-twitter"></i></a>  
+        //-   <a href="#"><i class="fa fa-linkedin"></i></a>  
+        //-   <a href="#"><i class="fa fa-facebook"></i></a> 
+        //- </div>
+        a(href=`/editProfile/${user.name}` class="btn btn-primary" style="width: 100%") Edit
+        a(href=`/changePassword/${user.name}` class="btn btn-dark" style="width: 100%") Change Password
+        a(href=`/deleteUser/${user.name}` class="btn btn-danger" style="width: 100%") Delete Account
+      </div> 
 
     div.footer
       p &copy; 2020 Vehicle Assistant

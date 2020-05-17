@@ -153,11 +153,6 @@ router.post('/login', (req, res) => {
                                     secure: false,
                                     httpOnly: true,
                                 });
-                                /*res.json({
-                                    message: "Succesful Login",
-                                    Userid: user.Userid,
-                                    name: user.name,
-                                });*/
                                 res.redirect('/home');
                             });
                     }
@@ -244,6 +239,9 @@ router.post('/sellCar/carDetails', upload.single('photo'), function(req, res, ne
         }
         else {
             var room = req.body.brand + ' ' + user.name.substr(0, user.name.indexOf(' '));
+            var now = new Date();
+            now.setDate(now.getDate() + 7);
+            
             const newCar = new Car({ 
                 brand: req.body.brand,
                 model: req.body.model,
@@ -254,7 +252,9 @@ router.post('/sellCar/carDetails', upload.single('photo'), function(req, res, ne
                 owner: user._id,
                 image: req.file.path,
                 roomName: room,
-                postedAt: new Date().toDateString()
+                postedAt: new Date().toDateString(),
+                auctionDate: now.toDateString(),
+                auctionTime: '10:00 A.M.'
             });
 
             newCar.save()
@@ -262,7 +262,33 @@ router.post('/sellCar/carDetails', upload.single('photo'), function(req, res, ne
             .catch();
         }
     }) (req, res, next);
-});
+})
+
+// router.get('/testRoute', (req, res) => {
+//     var carDetails = ['Maruti', 'Swift', 'Delhi', 'Delhi', '2016', '56780']
+//     // fs.writeFile('testingData.txt', carDetails, (err) => {
+//     //     if(err) {
+//     //         console.log(err);
+//     //     }
+//     //     else {
+//     //         console.log('Write Success');
+//     //     }
+//     // })
+
+//     const scriptPath = 'D:/VehicleAssistant/Test.py'
+//     const process = spawn('python', [scriptPath, carDetails[0]])
+
+//     process.stderr.on('data', (myErr) => {
+//         if(myErr)
+//             console.log(myErr);
+//         else
+//             console.log(data.toString('utf-8'));
+//     })
+
+//     process.on('exit', function (code, signal) {
+//         return res.send('Success')
+//     });
+// })
 
 router.get('/car/:carid', function(req, res, next) {
     passport.authenticate('jwt', function(err, user) {
@@ -588,7 +614,7 @@ router.post('/deleteUser/:username', function(req, res, next) {
             return res.redirect('/login');
         }
         else {
-            bcrypt.compare(req.body.currPass, user.password)
+            bcrypt.compare(req.body.password, user.password)
                 .then(isMatch => {
                     if(!isMatch) {
                         const error = "Password Incorrect"

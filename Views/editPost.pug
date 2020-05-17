@@ -21,7 +21,6 @@
       form(action=`/editPost/${car._id}` method="POST")   
         <h4>Edit Car Details</h4>
         <div class="form-group">
-          <label for="brand">Select Brand</label>
           <select class="form-control" name="brand" id="brand" onChange="changeModel(this.value);">
             <option value="" disabled selected>Select Brand</option>
             <option value="Maruti">Maruti</option>
@@ -44,7 +43,6 @@
         </div>
 
         <div class="form-group">
-          <label for="model">Select Model</label>
           <select class="form-control" name="model" id="model">
               <option value="" disabled selected>Select Model</option>
           </select>
@@ -79,6 +77,7 @@
         </div>
 
         <input class="btn btn-primary" type="submit" name="" value="Save" >
+        a(href=`/myCars` class="btn btn-secondary" style="margin-left: 20px") Cancel
 
         #alert-box
           if errors

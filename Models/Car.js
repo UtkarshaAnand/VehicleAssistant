@@ -39,6 +39,12 @@ const CarSchema = new Schema({
     },
     postedAt: {
         type: String
+    },
+    auctionDate: {
+        type: String,
+    },
+    auctionTime: {
+        type: String,
     }
 });
 
