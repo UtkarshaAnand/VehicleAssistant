@@ -17,9 +17,10 @@
         li(style="float:right;"): a(href='/logout') Logout 
       </ul>
 
-    <div class="car-info-box">
+    <div class="car-info-box" style="top: 45%; left: 50%">
       form(action=`/editPost/${car._id}` method="POST")   
-        <h4>Edit Car Details</h4>
+        //- <h4>Edit Car Details</h4>
+        img(src="/Logo.jpg", alt="Logo" style="height: 250px; width: 250px; transform: translate(7%, -1%)")
         <div class="form-group">
           <select class="form-control" name="brand" id="brand" onChange="changeModel(this.value);">
             <option value="" disabled selected>Select Brand</option>
@@ -76,8 +77,9 @@
           input(type="text" class="form-control" name="km" value=`${car.km}` aria-label="Kilometers" aria-describedby="basic-addon1" autocomplete="off" required)
         </div>
 
-        <input class="btn btn-primary" type="submit" name="" value="Save" >
-        a(href=`/myCars` class="btn btn-secondary" style="margin-left: 20px") Cancel
+        div(style="transform: translate(20%, 0%)")
+          <input class="btn btn-primary" type="submit" name="" value="Save" >
+          a(href=`/myCars` class="btn btn-secondary" style="margin-left: 20px") Cancel
 
         #alert-box
           if errors

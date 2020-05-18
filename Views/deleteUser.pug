@@ -13,13 +13,15 @@
                 li: a(href=`/chatRoom/${user.name}`) Chat Room
                 li: a(href="/sellCar/carDetails") Sell a car
                 li: a(href="/drive") Drive
-                li: a(href=`/myProfile/${user.name}` class="active" style="color: black;") #{user.name}
+                <li><a href="/myCars">My Cars</a><li>
+                li: a(href=`/myProfile/${user.name}`) #{user.name}
+                li: a(class="active" href=`/deleteUser/${user.name}` style="color: black;") Delete Account
                 li(style="float:right;"): a(href='/logout') Logout 
             </ul>
-        <div class="signup-box">
+        <div class="signup-box" style="top: 40%; left: 50%">
           form(action=`/deleteUser/${user.name}` method="POST" onsubmit="return confirm('Are you sure you want to delete your account?');")   
-            <h4>Delete Account</h4>
-
+            //- <h4>Delete Account</h4>
+            img(src="/Logo.jpg", alt="Logo" style="height: 250px; width: 250px; transform: translate(5%, 10%)")
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">Password</span>
@@ -27,8 +29,9 @@
                 <input type="password" class="form-control" name="password" aria-label="Password" aria-describedby="basic-addon1" autocomplete="off" required autofocus>
             </div>
 
-            <input class="btn btn-danger" type="submit" name="" value="Delete">
-            a(href=`/myProfile/${user.name}` class="btn btn-secondary" style="margin-left: 20px") Cancel
+            div(style="transform: translate(20%, 0%)")
+                <input class="btn btn-danger" type="submit" name="" value="Delete">
+                a(href=`/myProfile/${user.name}` class="btn btn-secondary" style="margin-left: 20px") Cancel
           
             #alert-box
                 if error

@@ -25,12 +25,6 @@
         h2(style="margin-top: 10px")= user.name
         p.title= user.email
         p.title= user.contactNumber
-        //- <div style="margin: 24px 0;">
-        //-   <a href="#"><i class="fa fa-dribbble"></i></a> 
-        //-   <a href="#"><i class="fa fa-twitter"></i></a>  
-        //-   <a href="#"><i class="fa fa-linkedin"></i></a>  
-        //-   <a href="#"><i class="fa fa-facebook"></i></a> 
-        //- </div>
         a(href=`/editProfile/${user.name}` class="btn btn-primary" style="width: 100%") Edit
         a(href=`/changePassword/${user.name}` class="btn btn-dark" style="width: 100%") Change Password
         a(href=`/deleteUser/${user.name}` class="btn btn-danger" style="width: 100%") Delete Account

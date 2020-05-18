@@ -19,7 +19,8 @@
 
     <div class="car-info-box">
       <form action="/sellCar/carDetails" method="POST" enctype="multipart/form-data">   
-        <h4>Car Details</h4>
+        //- <h4>Car Details</h4>
+        img(src="/Logo.jpg", alt="Logo" style="height: 250px; width: 250px; transform: translate(7%, -1%)")
         <div class="form-group">
           <select class="form-control" name="brand" id="brand" onChange="changeModel(this.value);">
             <option value="" disabled selected>Select brand</option>
@@ -85,9 +86,9 @@
               <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
           </div>
         </div>
-
-        <input class="btn btn-primary" type="submit" name="" value="Submit" >
-        a(href=`/home` class="btn btn-secondary" style="margin-left: 20px") Cancel 
+        div(style="transform: translate(18%, 0%)")
+          <input class="btn btn-primary" type="submit" name="" value="Submit" >
+          a(href=`/home` class="btn btn-secondary" style="margin-left: 20px") Cancel 
 
       </form>
       #alert-box

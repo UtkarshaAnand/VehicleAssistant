@@ -11,7 +11,7 @@ body{
 .login-box{
   width: 280px;
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: #000000ed;
@@ -40,7 +40,7 @@ body{
 .signup-box{
   width: 280px;
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: black;
@@ -57,7 +57,7 @@ body{
 .car-info-box{
   width: 280px;
   position: absolute;
-  top: 50%;
+  top: 48%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: black;
@@ -124,7 +124,7 @@ body{
 }
 
 .footer {
-  position: absolute;
+  position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
