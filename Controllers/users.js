@@ -495,12 +495,19 @@ router.post('/editProfile/:username', function(req, res, next) {
             return res.redirect('/login');
         }
         else {
+            const {errors, isValid} = validateRegisterInput(req.body);
             User.findOne({_id: user._id})
             .then(user => {
                 if(!user) {
                     return console.log("No user Profile");
                 }
                 else {
+                    if(!isValid){
+                        return res.status(400).render('editProfile', {
+                            errors: errors.email,
+                            user
+                        });
+                    }
                     user.name = req.body.name,
                     user.email = req.body.email,
                     user.contactNumber = req.body.contact
