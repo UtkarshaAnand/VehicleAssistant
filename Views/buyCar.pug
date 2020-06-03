@@ -4,11 +4,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     link(rel="stylesheet" type="text/css" href="/css/PageStyle.css")
     title Buy Car
-  <body>
+  <body onload="myFunction()">
     div.top
       <ul>
         <li><a class="active" href="/home" style="color: black;">Home</a></li>
-        li: a(href=`/chatRoom/${user.name}`) Chat Room
         li: a(href="/sellCar/carDetails") Sell a car
         li: a(href="/drive") Drive
         <li><a href="/myCars">My Cars</a><li>
@@ -17,21 +16,47 @@
       </ul>
 
     div.main
-      <div class="card" style="width: 38rem; position: absolute; top: 52%; left: 50%; transform: translate(-50%, -50%);">
-        img.card-img-top(src=`/${car.image}` alt="Card image cap")
-        <div class="card-body">
-          <h4 class="card-title" style="text-align: center">#{car.brand} #{car.model}</h4>
-          <p class="card-text" style="text-align: center">Location: #{car.regCity}, #{car.regState}</p> 
-          <p class="card-text" style="text-align: center">Registration Year: #{car.regYear}</p>
-          <p class="card-text" style="text-align: center">Kilometers: #{car.km}</p>
-          <p class="card-text" style="text-align: center">Owner: #{owner.name}</p>
-          <p class="card-text" style="text-align: center">Room Name: #{car.roomName}</p>
-          <p class="card-text" style="text-align: center">Posted on: #{car.postedAt}</p>
-          <p class="card-text" style="text-align: center">Auction on: #{car.auctionDate}, #{car.auctionTime}</p>
+      //- <div class="card" style="width: 38rem; position: absolute; top: 52%; left: 50%; transform: translate(-50%, -50%);">
+      //-   img.card-img-top(src=`/${car.image}` alt="Card image cap")
+      //-   <div class="card-body">
+      //-     <h4 class="card-title">#{car.brand} #{car.model}</h4>
+      //-     <p>Location: #{car.regCity}, #{car.regState}</p> 
+      //-     <p>Registration Year: #{car.regYear}</p>
+      //-     <p>Kilometers: #{car.km}</p>
+      //-     <p>Owner: #{owner.name}</p>
+      //-     <p>Room Name: #{car.roomName}</p>
+      //-     <p>Posted on: #{car.postedAt}</p>
+      //-     <p>Auction on: #{car.auctionDate}, #{car.auctionTime}</p>
+      //-   </div>
+      //- </div> 
+      <div class="car-card">
+        <div class="car-photo">
+          img(src=`/${car.image}` alt="Card image cap")
         </div>
-      </div>  
+        <div class="description">
+          <h4 style="margin-bottom: 30px">#{car.brand} #{car.model}</h4>
+          <p>Location: #{car.regCity}, #{car.regState}</p> 
+          <p>Registration Year: #{car.regYear}</p>
+          <p>Kilometers: #{car.km}</p>
+          <p>Owner: #{owner.name}</p>
+          //- <p>Room Name: #{car.roomName}</p>
+          <p>Posted on: #{car.postedAt}</p>
+          <p>Auction on: #{car.auctionDate}, #{car.auctionTime}</p>
+          a(href=`/chatRoom/${user.name}/${car._id}` id="timed-btn" class="btn btn-primary disabled" role="button" aria-disabled="true" style="margin-right: 20px") Join Room
+        </div>
+      </div> 
 
     div.footer
       p &copy; 2020 Vehicle Assistant
+    
+    script.
+      function myFunction() {
+        var today = new Date().toDateString();
+        if(today == "#{car.auctionDate}") {
+          var mybtn = document.getElementById('timed-btn');
+          mybtn.className = "btn btn-primary";
+          mybtn.setAttribute('aria-disabled', 'false');
+        }
+      }
   </body>
 </html>

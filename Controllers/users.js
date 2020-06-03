@@ -196,7 +196,7 @@ router.get('/home', function(req, res, next) {
     }) (req, res, next);
   });
 
-router.get('/chatRoom/:username', function(req, res, next) {
+router.get('/chatRoom/:username/:carid', function(req, res, next) {
     passport.authenticate('jwt', function(err, user) {
         if(err) { 
           return next(err); 
@@ -205,8 +205,26 @@ router.get('/chatRoom/:username', function(req, res, next) {
             return res.redirect('/login'); 
         }
         else{ 
-            return res.render('joinChat', {
-                user
+            Car.findOne({_id: req.params.carid})
+            .then(car => {
+                if(!car) {
+                    return console.log("Car not found!");
+                }
+                else {
+                    const owner_id = car.owner;
+                    User.findById({_id: owner_id})
+                    .then(owner => {
+                        if(!owner) {
+                            return console.log('Owner not found!');
+                        }
+                        else {
+                            return res.status(200).render('joinChat', {
+                                car,
+                                user
+                            });
+                        }
+                    })
+                }
             })
             //return res.sendFile(path.join(__dirname, '../views/joinChat.html'));
         }
@@ -238,7 +256,7 @@ router.post('/sellCar/carDetails', upload.single('photo'), function(req, res, ne
             return res.redirect('/login');
         }
         else {
-            var room = req.body.brand + ' ' + user.name.substr(0, user.name.indexOf(' '));
+            var room = req.body.brand + user.name.substr(0, user.name.indexOf(' '));
             var now = new Date();
             now.setDate(now.getDate() + 7);
             
@@ -406,7 +424,7 @@ router.post('/editPost/:carid', function(req, res, next) {
                     return console.log('Car not found')
                 }
                 else {
-                    var room = req.body.brand + ' ' + user.name.substr(0, user.name.indexOf(' '));
+                    var room = req.body.brand + user.name.substr(0, user.name.indexOf(' '));
                     car.brand= req.body.brand,
                     car.model= req.body.model,
                     car.regState= req.body.regState,

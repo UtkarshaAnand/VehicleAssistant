@@ -9,7 +9,6 @@
     div.top
       <ul>
         <li><a href="/home">Home</a></li>
-        li: a( href=`/chatRoom/${user.name}`) Chat Room
         <li><a class="active" href="/sellCar/carDetails" style="color: black;">Sell a car</a></li>
         li: a(href="/drive") Drive
         <li><a href="/myCars">My Cars</a><li>
@@ -22,7 +21,7 @@
         //- <h4>Car Details</h4>
         img(src="/Logo.jpg", alt="Logo" style="height: 250px; width: 250px; transform: translate(7%, -1%)")
         <div class="form-group">
-          <select class="form-control" name="brand" id="brand" onChange="changeModel(this.value);">
+          <select class="form-control" name="brand" id="brand" onChange="changeModel(this.value);" required>
             <option value="" disabled selected>Select brand</option>
             <option value="Maruti">Maruti</option>
             <option value="Hyundai">Hyundai</option>
@@ -44,7 +43,7 @@
         </div>
 
         <div class="form-group">
-          <select class="form-control" name="model" id="model">
+          <select class="form-control" name="model" id="model" required>
               <option value="" disabled selected>Select Model</option>
           </select>
         </div>
