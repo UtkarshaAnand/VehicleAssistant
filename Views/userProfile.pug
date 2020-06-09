@@ -10,7 +10,8 @@
     div.top
       <ul>
         <li><a href="/home">Home</a></li>
-        li: a(href="/sellCar/carDetails") Sell a car
+        li: a(href="/evaluateCar") Evaluate Car
+        <li><a href="/usedCars">Used Cars</a></li>
         li: a(href="/drive") Drive
         li: a(href="/myCars") My Cars
         li: a(class= "active" href=`/myProfile/${user.name}` style="color: black;") #{user.name}
@@ -18,12 +19,11 @@
       </ul>
 
     div.main
-
       <div class="profile-card" style="width: 38rem; position: absolute; top: 50%;left: 50%; transform: translate(-50%, -50%);">
         img(src=`/${user.profilePicture}` alt="Profile Picture" style="width:100%")
-        h2(style="margin-top: 10px")= user.name
-        p.title= user.email
-        p.title= user.contactNumber
+        h2(style="margin-top: 10px; text-align: left; padding-left: 20px; border-bottom: 2px solid #eee;") #{user.name}
+        p.title(style="margin-bottom: 0px;  text-align: left; padding-left: 20px") <i class="fa fa-envelope" aria-hidden="true" style="color: black; margin-right: 5px;"></i> #{user.email}
+        p.title(style=" text-align: left; padding-left: 20px") <i class="fa fa-phone" aria-hidden="true" style="color: black;  margin-right: 5px;"></i> #{user.contactNumber}
         a(href=`/editProfile/${user.name}` class="btn btn-primary" style="width: 100%") Edit
         a(href=`/changePassword/${user.name}` class="btn btn-dark" style="width: 100%") Change Password
         a(href=`/deleteUser/${user.name}` class="btn btn-danger" style="width: 100%") Delete Account
@@ -31,5 +31,6 @@
 
     div.footer
       p &copy; 2020 Vehicle Assistant
+        <a href="https://github.com/UtkarshaAnand/VehicleAssistant" target="_blank" style="font-size: medium;"><i class="fa fa-github" style=" margin-left: 10px;"></a></i>
   </body>
 </html>

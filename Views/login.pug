@@ -10,16 +10,14 @@
     div.top
       <ul>
           <li><a href="/">Home</a></li>
-          li: a(href="/sellCar/carDetails") Sell a car
-          li: a(href="/drive") Drive
           li: a(href="/signUp") SignUp
           li: a(href='login' class="active" style="color: black;") Login
       </ul>
     
     <div class="login-box">
       <form action="/login" class='login-form' method="POST">
-        //- <h4>Login</h4>
-        img(src="/Logo.jpg", alt="Logo" style="height: 250px; width: 250px; transform: translate(7%, 10%)")
+        <h4>Login</h4>
+        //- img(src="/Logo.jpg", alt="Logo" style="height: 250px; width: 250px; transform: translate(7%, 10%)")
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Email</span>
@@ -34,7 +32,7 @@
           <input type="password" class="form-control" name="password" aria-label="Password" aria-describedby="basic-addon1" autocomplete="off" required>
         </div>
 
-        <input class="btn btn-primary" type="submit" name="" value="Login" style="transform: translate(160%, 0%)">
+        <input class="btn btn-primary" type="submit" name="" value="Login" style="transform: translate(170%, 0%)">
 
       </form>
 
@@ -45,8 +43,10 @@
               each err in errors
                 li= err
           </div>
+      <p style="font-size: small; color: grey; font-style: italic; margin-top: 20px; padding: 0px 50px"> New here? <a href='/signup' style="text-decoration: none; font-size: small">Signup</a> to continue</p>
     </div>
     div.footer 
       p &copy; 2020 Vehicle Assistant
+        <a href="https://github.com/UtkarshaAnand/VehicleAssistant" target="_blank" style="font-size: medium;"><i class="fa fa-github" style=" margin-left: 10px;"></a></i>
   </body>
 </html>

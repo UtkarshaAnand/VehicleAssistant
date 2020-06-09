@@ -9,6 +9,8 @@
     div.top
       <ul>
         <li><a href="/home">Home</a></li>
+        li: a(href="/evaluateCar") Evaluate Car
+        <li><a href="/usedCars">Used Cars</a></li>
         <li><a class="active" href="/sellCar/carDetails" style="color: black;">Sell a car</a></li>
         li: a(href="/drive") Drive
         <li><a href="/myCars">My Cars</a><li>
@@ -18,8 +20,8 @@
 
     <div class="car-info-box">
       <form action="/sellCar/carDetails" method="POST" enctype="multipart/form-data">   
-        //- <h4>Car Details</h4>
-        img(src="/Logo.jpg", alt="Logo" style="height: 250px; width: 250px; transform: translate(7%, -1%)")
+        <h4>Car Details</h4>
+        //- img(src="/Logo.jpg", alt="Logo" style="height: 210px; width: 210px; transform: translate(16%, -1%)")
         <div class="form-group">
           <select class="form-control" name="brand" id="brand" onChange="changeModel(this.value);" required>
             <option value="" disabled selected>Select brand</option>
@@ -62,11 +64,24 @@
           <input type="text" class="form-control" name="regCity" aria-label="City" aria-describedby="basic-addon1" autocomplete="off" required>
         </div>
 
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">Year</span>
-          </div>
-          <input type="text" class="form-control" name="regYear" aria-label="Year" aria-describedby="basic-addon1" autocomplete="off" required>
+        <div class="form-group">
+          <select class="form-control" name="regYear" required>
+            <option value="" disabled selected>Year of Registration</option>
+            <option value="2005">2005</option>
+            <option value="2006">2006</option>
+            <option value="2007">2007</option>
+            <option value="2008">2008</option>
+            <option value="2009">2009</option>
+            <option value="2010">2010</option>
+            <option value="2011">2011</option>
+            <option value="2012">2012</option>
+            <option value="2013">2013</option>
+            <option value="2014">2014</option>
+            <option value="2015">2015</option>
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+          </select>
         </div>
 
         <div class="input-group mb-3">
@@ -74,6 +89,13 @@
               <span class="input-group-text" id="basic-addon1">Kilometers</span>
           </div>
           <input type="text" class="form-control" name="km" aria-label="Kilometers" aria-describedby="basic-addon1" autocomplete="off" required>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Set Price</span>
+          </div>
+          <input type="text" class="form-control" name="price" aria-label="Price" aria-describedby="basic-addon1" autocomplete="off" required>
         </div>
 
         <div class="input-group mb-3">
@@ -101,6 +123,7 @@
 
     div.footer
       p &copy; 2020 Vehicle Assistant
+        <a href="https://github.com/UtkarshaAnand/VehicleAssistant" target="_blank" style="font-size: medium;"><i class="fa fa-github" style=" margin-left: 10px;"></a></i>
     
     script(src="../JS/brand-model.js")
   </body>

@@ -10,16 +10,14 @@
         div.top
             <ul>
                 <li><a href="/">Home</a></li>
-                li: a(href="/sellCar/carDetails") Sell a car
-                li: a(href="/drive") Drive
                 li: a(href="signUp" class="active" style="color: black;") SignUp
                 li: a(href='login') Login
             </ul>
 
         <div class="signup-box">
           <form action="/signUp" method="POST" enctype="multipart/form-data">   
-            //- <h4>Signup</h4>
-            img(src="/Logo.jpg", alt="Logo" style="height: 250px; width: 250px; transform: translate(7%, 10%)")
+            <h4>Signup</h4>
+            //- img(src="/Logo.jpg", alt="Logo" style="height: 250px; width: 250px; transform: translate(7%, 11%)")
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">Username</span>
@@ -57,7 +55,7 @@
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">Photo</span>
+                    <span class="input-group-text">Avatar</span>
                 </div>
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" name="photo" id="inputGroupFile01">
@@ -65,7 +63,7 @@
                 </div>
             </div>
             
-            <input class="btn btn-primary" type="submit" name="" value="Signup" style="transform: translate(130%, 0%)">
+            <input class="btn btn-primary" type="submit" name="" value="Signup" style="transform: translate(140%, 0%)">
           </form>
             #alert-box
                 if errors
@@ -74,9 +72,11 @@
                             each err in errors
                                 li= err
                     </div>
+            <p style="font-size: small; color: grey; font-style: italic; margin-top: 20px; padding: 0px 33px"> Already registerd? <a href='/login' style="text-decoration: none; font-size: small">Login</a> to continue </p>
         </div>
 
         div.footer
             p &copy; 2020 Vehicle Assistant
+        <a href="https://github.com/UtkarshaAnand/VehicleAssistant" target="_blank" style="font-size: medium;"><i class="fa fa-github" style=" margin-left: 10px;"></a></i>
     </body>
 </html>

@@ -1,0 +1,48 @@
+<html>
+  head
+    block styles
+    title Used Cars
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    link(rel="stylesheet" type="text/css" href="/css/PageStyle.css")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <body>
+    div.top
+      <ul>
+        <li><a href="/home">Home</a></li>
+        li: a(href="/evaluateCar") Evaluate Car
+        <li><a class="active" href="/usedCars" style="color: black;">Used Cars</a></li>
+        li: a(href="/drive") Drive
+        <li><a href="/myCars">My Cars</a><li>
+        li: a(href=`/myProfile/${user.name}`) #{user.name}
+        li(style="float:right;"): a(href='/logout') Logout 
+      </ul>
+
+    div.main
+      div(style="width: 100%; height: 40px; background-color: black; color: white; text-align: center; opacity: 0.50")
+        h4(style="font-weight: 200; margin-top: 10px; padding-top: 5px;") Available used cars
+      <div class="row row-cols-1 row-cols-md-4" style="margin-top: 20px; margin-bottom: 20px; margin-right: 5px; margin-left: 5px;">
+        for car in cars
+          -var ownerId = car.owner._id.toString()
+          -var userId = user._id.toString()
+          -if (ownerId != userId)
+            <div class="col mb-4">
+              <div class="card h-100" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);">
+                img.card-img-top(src=`/${car.image}` alt="Card image cap")
+                <div class="tag">
+                  p <i class="fa fa-inr"></i> #{car.price}L
+                </div>
+                <div class="card-body">
+                  h5.card-title(style="margin-bottom: 0px;")= car.brand + ' ' + car.model
+                  p.title(style="font-size: 15px; border-bottom: none; margin-bottom: 10px") #{car.regCity}, #{car.regState} | #{car.regYear}
+                  a(href=`/car/${car._id}` class="btn btn-primary stretched-link") View 
+                </div>
+              </div>
+            </div>
+      </div>
+    
+    div.footer
+      p &copy; 2020 Vehicle Assistant
+        <a href="https://github.com/UtkarshaAnand/VehicleAssistant" target="_blank" style="font-size: medium;"><i class="fa fa-github" style=" margin-left: 10px;"></a></i>
+  </body>
+</html>

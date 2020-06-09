@@ -22,6 +22,21 @@ var storage = multer.diskStorage({
     }
 })
 
+function runPython(carDetails, cb) {
+    var scriptPath = 'D:/Rishu/VehicleAssistant/Scripts/FinalPrediction.py'
+    var process = spawn('python', [scriptPath, carDetails])
+
+    var predictedPrice = '';
+
+    process.stdout.on('data', (data) => {
+        predictedPrice += data.toString('utf-8');
+    })
+
+    process.on('close', function (code) {
+        cb(predictedPrice);
+    });
+}
+
 
 const { spawn } = require('child_process');
 
@@ -188,7 +203,6 @@ router.get('/home', function(req, res, next) {
                 else {
                     return res.render('home', {
                         user,
-                        cars
                     });
                 }
             });
@@ -231,6 +245,31 @@ router.get('/chatRoom/:username/:carid', function(req, res, next) {
     }) (req, res, next);
 });
 
+router.get('/usedCars', function(req, res, next) {
+    passport.authenticate('jwt', function(err, user) {
+        if(err) { 
+          return next(err); 
+        }
+        if(!user) { 
+            return res.redirect('/login'); 
+        }
+        else{ 
+            Car.find({})
+            .then(cars => { 
+                if(!cars) {
+                    return console.log("No car available")
+                }
+                else {
+                    return res.render('usedCars', {
+                        user,
+                        cars
+                    });
+                }
+            });
+        }
+    }) (req, res, next);
+});
+
 router.get('/sellCar/carDetails', function(req, res, next) {
     passport.authenticate('jwt', function(err, user) {
         if(err) { 
@@ -243,6 +282,45 @@ router.get('/sellCar/carDetails', function(req, res, next) {
             return res.status(200).render('carDetails', {
                 user
             });
+        }
+    }) (req, res, next);
+});
+
+router.get('/evaluateCar', function(req, res, next) {
+    passport.authenticate('jwt', function(err, user) {
+        if(err) { 
+            return next(err); 
+        }
+        if(!user) { 
+            return res.redirect('/login'); 
+        }
+        else{ 
+            return res.status(200).render('evaluateCar', {
+                user
+            });
+        }
+    }) (req, res, next);
+});
+
+router.post('/evaluateCar', function(req, res, next) {
+    passport.authenticate('jwt', function(err, user) {
+        if(err) { 
+            return next(err); 
+        }
+        if(!user) { 
+            return res.redirect('/login'); 
+        }
+        else{ 
+            var carDetails = [req.body.brand, req.body.model, req.body.regState, req.body.regCity, req.body.regYear, req.body.km];
+            
+            runPython(carDetails, function(result) {               
+                var value = result;
+                res.render('prediction', {
+                    value,
+                    carDetails,
+                    user
+                })
+            })
         }
     }) (req, res, next);
 });
@@ -272,7 +350,8 @@ router.post('/sellCar/carDetails', upload.single('photo'), function(req, res, ne
                 roomName: room,
                 postedAt: new Date().toDateString(),
                 auctionDate: now.toDateString(),
-                auctionTime: '10:00 A.M.'
+                auctionTime: '10:00 A.M.',
+                price: req.body.price
             });
 
             newCar.save()
@@ -281,32 +360,6 @@ router.post('/sellCar/carDetails', upload.single('photo'), function(req, res, ne
         }
     }) (req, res, next);
 })
-
-// router.get('/testRoute', (req, res) => {
-//     var carDetails = ['Maruti', 'Swift', 'Delhi', 'Delhi', '2016', '56780']
-//     // fs.writeFile('testingData.txt', carDetails, (err) => {
-//     //     if(err) {
-//     //         console.log(err);
-//     //     }
-//     //     else {
-//     //         console.log('Write Success');
-//     //     }
-//     // })
-
-//     const scriptPath = 'D:/VehicleAssistant/Test.py'
-//     const process = spawn('python', [scriptPath, carDetails[0]])
-
-//     process.stderr.on('data', (myErr) => {
-//         if(myErr)
-//             console.log(myErr);
-//         else
-//             console.log(data.toString('utf-8'));
-//     })
-
-//     process.on('exit', function (code, signal) {
-//         return res.send('Success')
-//     });
-// })
 
 router.get('/car/:carid', function(req, res, next) {
     passport.authenticate('jwt', function(err, user) {
@@ -431,6 +484,7 @@ router.post('/editPost/:carid', function(req, res, next) {
                     car.regCity= req.body.regCity,
                     car.regYear= req.body.regYear,
                     car.km = req.body.km,
+                    car.price = req.body.price,
                     car.roomName = room
                     car.save()
                     .then(res.redirect('/myCars'))

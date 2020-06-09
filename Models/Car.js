@@ -45,6 +45,9 @@ const CarSchema = new Schema({
     },
     auctionTime: {
         type: String,
+    },
+    price: {
+        type: String
     }
 });
 
