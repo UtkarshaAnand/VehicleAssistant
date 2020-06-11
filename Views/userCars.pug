@@ -31,7 +31,8 @@
               <div class="card-body">
                 h5.card-title(style="margin-bottom: 0px;")= car.brand + ' ' + car.model
                 p.title(style="font-size: 15px; border-bottom: 2px solid #eee; margin-bottom: 10px") #{car.regCity}, #{car.regState} | #{car.regYear}  
-                a(href=`/editPost/${car._id}` class="btn btn-primary" style="margin-right: 20px") Edit
+                a(href=`/editPost/${car._id}` class="btn btn-primary" style="margin-right: 10px") Edit
+                a(href=`/chatRoom/${user.name}/${car._id}` class="btn btn-primary") Conduct Auction
                 form(action= `/deletePost/${car._id}` method="POST" onsubmit="return confirm('Are you sure you want to delete the post?');")
                   input(class="btn btn-danger" type="Submit" value="Delete" style="margin-top: 10px") 
               </div>
@@ -42,5 +43,6 @@
     div.footer
       p &copy; 2020 Vehicle Assistant
         <a href="https://github.com/UtkarshaAnand/VehicleAssistant" target="_blank" style="font-size: medium;"><i class="fa fa-github" style=" margin-left: 10px;"></a></i>
+  
   </body>
 </html>
