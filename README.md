@@ -27,4 +27,4 @@ To install Python libraries, run _**pip install {library_name}**_ in the termina
 
 * Install the dependencies and run _**node app.js**_ in the terminal.
 * Go to _**localhost:3000**_ in your web browser.
-* Register as a new user and acccess all the features.
+* Register as a new user and access all the features.
