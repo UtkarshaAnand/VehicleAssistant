@@ -2,7 +2,7 @@
 
 ## Description
 
-Vehicle Assistant is a Web App providing solutions to all your personal vehicle problems. A platform where users can register to sell their used cars, buy available used cars and take drowsiness detection test while driving. Used car sellers can conduct virtual auction involving all the interested buyers. The website also predicts an approximate value of the used car that helps the seller to decide a base price for the car.
+Vehicle Assistant is a Web App providing solutions to all your personal vehicle problems. A platform where users can register to sell their used cars, buy available used cars and take drowsiness detection tests while driving. Used car sellers can conduct virtual auctions involving all the interested buyers. The website also predicts an approximate value of the used car that helps the seller to decide a base price for the car.
 
 ## Installation
 
