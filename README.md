@@ -11,8 +11,17 @@ Vehicle Assistant is a Web App providing solutions to all your personal vehicle 
 * **Node.Js v10.15.0** or higher
 * **MongoDB v4.0** or higher
 * **npm v6.4** or higher
+* **Python3.7** or higher
 
 To install the dependencies, clone the repository and run _**npm install**_ in the terminal.
+To install Python libraries, run _**pip install {library_name}**_ in the terminal.
+
+#### Python Libraries
+
+* **cv2** (OpenCV) 
+* **scikit-learn**
+* **numpy**
+* **joblib**
 
 ## Usage
 
