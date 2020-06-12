@@ -4,8 +4,8 @@ import os
 import joblib
 import sys
 
-originalData = pd.read_csv("D:/train-data.csv")
-trainedData = pd.read_csv("D:/trained.csv")
+originalData = pd.read_csv("D:/Rishu/VehicleAssistant/Scripts/Dataset/train-data.csv")
+trainedData = pd.read_csv("D:/Rishu/VehicleAssistant/Scripts/Dataset/trained.csv")
 trainedData.drop(trainedData.columns[0], axis=1, inplace=True)
 trainedData.drop('Price',axis=1,inplace=True)
 
