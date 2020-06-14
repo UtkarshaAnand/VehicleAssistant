@@ -23,7 +23,7 @@ var storage = multer.diskStorage({
 })
 
 function runPython(carDetails, cb) {
-    var scriptPath = 'D:/Rishu/VehicleAssistant/Scripts/FinalPrediction.py'
+    var scriptPath = '../Scripts/FinalPrediction.py'
     var process = spawn('python', [scriptPath, carDetails])
 
     var predictedPrice = '';
@@ -335,9 +335,9 @@ router.post('/sellCar/carDetails', upload.single('photo'), function(req, res, ne
         }
         else {
             var room = req.body.brand + user.name.substr(0, user.name.indexOf(' '));
-            var now = new Date();
-            now.setDate(now.getDate() + 7);
-            
+            var date = new Date(req.body.auctionDate);
+            var auctionDate = date.toDateString();
+                        
             const newCar = new Car({ 
                 brand: req.body.brand,
                 model: req.body.model,
@@ -349,7 +349,7 @@ router.post('/sellCar/carDetails', upload.single('photo'), function(req, res, ne
                 image: req.file.path,
                 roomName: room,
                 postedAt: new Date().toDateString(),
-                auctionDate: now.toDateString(),
+                auctionDate: auctionDate,
                 auctionTime: '10:00 A.M.',
                 price: req.body.price
             });
@@ -398,7 +398,7 @@ router.get('/car/:carid', function(req, res, next) {
 });
 
 router.get('/drive', (req, res) => {
-    const scriptPath = 'D:/Rishu/VehicleAssistant/Scripts/Drowsiness.py'
+    const scriptPath = '../Scripts/Drowsiness.py'
     const process = spawn('python', [scriptPath])
     
     process.stderr.on('data', (myErr) => {
@@ -406,8 +406,7 @@ router.get('/drive', (req, res) => {
     })
 
     process.on('exit', function (code, signal) {
-        console.log('child process exited with ' +
-                    `code ${code} and signal ${signal}`);
+        // console.log('child process exited with ' + `code ${code} and signal ${signal}`);
         return res.redirect('/');
     });
 });

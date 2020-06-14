@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node app.js",
+    "dev": "nodemmon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Utkarsha",
@@ -28,5 +30,8 @@
     "pug": "^2.0.4",
     "socket.io": "^2.3.0",
     "validator": "^12.2.0"
+  },
+  "engines": {
+    "node": ">=10.0.0"
   }
 }

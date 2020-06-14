@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 const pug = require('pug');
 const SocketIO = require('socket.io');
 
-//dotenv.config({path: '../congif.env'})
+dotenv.config({path: '../config.env'})
 
 var {mongoose} = require('./config');
 
@@ -51,7 +51,7 @@ app.use('/uploads', express.static('uploads'));
 var chatUsers = new ChatUsers();
 
 io.on('connection', (socket) => {
-    console.log('New User connected');
+    // console.log('New User connected');
 
     socket.on('join', (params, callback) => {
         if (!isRealString(params.name) || !isRealString(params.room)) {
