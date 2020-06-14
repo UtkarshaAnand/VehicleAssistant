@@ -23,7 +23,7 @@ var storage = multer.diskStorage({
 })
 
 function runPython(carDetails, cb) {
-    var scriptPath = '../Scripts/FinalPrediction.py'
+    var scriptPath = 'D:/Rishu/VehicleAssistant/Scripts/FinalPrediction.py'
     var process = spawn('python', [scriptPath, carDetails])
 
     var predictedPrice = '';
@@ -398,7 +398,7 @@ router.get('/car/:carid', function(req, res, next) {
 });
 
 router.get('/drive', (req, res) => {
-    const scriptPath = '../Scripts/Drowsiness.py'
+    const scriptPath = 'D:/Rishu/VehicleAssistant/Scripts/Drowsiness.py'
     const process = spawn('python', [scriptPath])
     
     process.stderr.on('data', (myErr) => {
