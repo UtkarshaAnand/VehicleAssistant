@@ -478,6 +478,8 @@ router.post('/editPost/:carid', function(req, res, next) {
                 }
                 else {
                     var room = req.body.brand + user.name.substr(0, user.name.indexOf(' '));
+                    var date = new Date(req.body.auctionDate);
+                    var auctionDate = date.toDateString();
                     car.brand= req.body.brand,
                     car.model= req.body.model,
                     car.regState= req.body.regState,
@@ -485,7 +487,8 @@ router.post('/editPost/:carid', function(req, res, next) {
                     car.regYear= req.body.regYear,
                     car.km = req.body.km,
                     car.price = req.body.price,
-                    car.roomName = room
+                    car.roomName = room,
+                    car.auctionDate = auctionDate
                     car.save()
                     .then(res.redirect('/myCars'))
                     .catch()

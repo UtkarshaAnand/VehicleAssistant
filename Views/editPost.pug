@@ -97,6 +97,13 @@
           input(type="text" class="form-control" name="price" value=`${car.price}` aria-label="Price" aria-describedby="basic-addon1" autocomplete="off" required)
         </div>
 
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Auction Date</span>
+          </div>
+          input(type="date" class="form-control" name="auctionDate" aria-label="State" aria-describedby="basic-addon1" autocomplete="off" required)
+        </div>
+
         div(style="transform: translate(20%, 0%)")
           <input class="btn btn-primary" type="submit" name="" value="Save" >
           a(href=`/myCars` class="btn btn-secondary" style="margin-left: 20px") Cancel
