@@ -1,7 +1,7 @@
 import cv2
 
 face_cascade = cv2.CascadeClassifier('D:/Rishu/VehicleAssistant/Scripts/Dataset/haarcascade_frontalface_default.xml')
-eye_cascade = cv2.CascadeClassifier('D:/Rishu/VehicleAssistant/Scripts/Dataset/haarcascade_eye_tree_eyeglasses.xml')
+eye_cascade = cv2.CascadeClassifier('D:/Rishu/VehicleAssistant/Scripts/Dataset/haarcascade_eye.xml')
 
 def detect(gray, frame):
     faces = face_cascade.detectMultiScale(gray, 1.3, 4)
